@@ -1,12 +1,14 @@
 package com.example.easymoneymanager;
 
 import static android.provider.BaseColumns._ID;
+import static com.example.easymoneymanager.DbConstants.flashaccounting;
 import static com.example.easymoneymanager.DbConstants.classes;
-import static com.example.easymoneymanager.DbConstants.data;
+import static com.example.easymoneymanager.DbConstants.date;
 import static com.example.easymoneymanager.DbConstants.group;
 import static com.example.easymoneymanager.DbConstants.list;
 import static com.example.easymoneymanager.DbConstants.location;
-import static com.example.easymoneymanager.DbConstants.money;
+import static com.example.easymoneymanager.DbConstants.expenditure;
+import static com.example.easymoneymanager.DbConstants.receipt;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -23,13 +25,15 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        final String INIT_TABLE = "CREATE TABLE " + classes + " (" +
+        final String INIT_TABLE = "CREATE TABLE " + flashaccounting + " (" +
                                   _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                                   group + " CHAR, " +
-                                  money + " int, " +
+                                  classes + " CHAR, " +
+                                  receipt + " int, " +
+                                  expenditure + " int, " +
                                   list + " CHAR, " +
                                   location + " CHAR, " +
-                                  data + " CHAR);"; 
+                                  date + " CHAR);"; 
         
         db.execSQL(INIT_TABLE);
     }

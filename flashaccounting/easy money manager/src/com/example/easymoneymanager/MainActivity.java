@@ -1,12 +1,14 @@
 package com.example.easymoneymanager;
 
 import static android.provider.BaseColumns._ID;
+import static com.example.easymoneymanager.DbConstants.flashaccounting;
 import static com.example.easymoneymanager.DbConstants.classes;
-import static com.example.easymoneymanager.DbConstants.data;
+import static com.example.easymoneymanager.DbConstants.date;
 import static com.example.easymoneymanager.DbConstants.group;
 import static com.example.easymoneymanager.DbConstants.list;
 import static com.example.easymoneymanager.DbConstants.location;
-import static com.example.easymoneymanager.DbConstants.money;
+import static com.example.easymoneymanager.DbConstants.expenditure;
+import static com.example.easymoneymanager.DbConstants.receipt;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
@@ -16,6 +18,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.app.Dialog;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.ContentValues;
@@ -28,13 +31,13 @@ import android.widget.SimpleCursorAdapter;
 
 
 
-/* 資料庫待修改
-public class SQLiteDemoActivity extends Activity implements OnClickListener {
+
+// 資料庫待修改
+public class MainActivity extends Activity implements OnClickListener {
 
     private DBHelper dbhelper = null;
 
     private TextView result = null;
-    private ListView listData = null;
     private EditText editName = null;
     private EditText editTel = null;
     private EditText editEmail = null;
@@ -43,16 +46,36 @@ public class SQLiteDemoActivity extends Activity implements OnClickListener {
     private Button btnDel = null;
     private Button btnUpdate = null;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        setContentView(R.layout.activity_main);
 
         initView();
 
         openDatabase();
-        show();
-        showInList();
+//        show();
+//        showInList();
+
+        
+//------------------------Original code------------------------
+        Button btn = (Button) findViewById(R.id.one);
+        btn.setEnabled(false);
+    		
+    	AddClass = (Button)findViewById(R.id.AddClass);
+    		
+    	AddClass.setOnClickListener(new OnClickListener() {
+    			
+    	@Override
+    	public void onClick(View v) {
+    				
+    			AddClass();
+    			// TODO Auto-generated method stub
+    				
+    		}
+    	});          
+//------------------------Original code end------------------------        
     }
 
     @Override
@@ -68,10 +91,9 @@ public class SQLiteDemoActivity extends Activity implements OnClickListener {
     private void closeDatabase(){
         dbhelper.close();
     }
-
+/*
     private void initView(){
         result = (TextView) findViewById(R.id.txtResult);
-        listData = (ListView) findViewById(R.id.listData);
         editName = (EditText) findViewById(R.id.editName);
         editTel = (EditText) findViewById(R.id.editTel);
         editEmail = (EditText) findViewById(R.id.editEmail);
@@ -190,92 +212,166 @@ public class SQLiteDemoActivity extends Activity implements OnClickListener {
         editEmail.setText("");
         editId.setText("");
     }
+    */
+    
+    
+//------------------------Original code------------------------
+    
+    private Button AddClass ;
+    private Handler handle;
+    private AlertDialog alert , alert2;
+    public  EditText classname ;
+    private void initView(){
 
-}  */
+        AddClass = (Button) findViewById(R.id.AddClass);
 
-public class MainActivity extends Activity {
+        AddClass.setOnClickListener(this);
+       
+    }
+   
+    
+/*    
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+        case R.id.AddClass:
+            add();
+            break;
 
-private Button AddClass  ;
-private Handler handle;
-private AlertDialog alert ;
+        default:
+            break;
+        }
 
+//        show();
+//       showInList();
+    }
+*/  
+    
+    
+    	private void AddClass(){
+    		
+    	    final Dialog dialog_addclasspg = new Dialog(this, R.style.dialogStyle);
+    	    
+    	    dialog_addclasspg.setContentView(R.layout.addclasspg);
+    	    
+    	    dialog_addclasspg.setTitle("新增支出類別");
+    	    
+    	    EditText addclassname = (EditText)dialog_addclasspg.findViewById(R.id.addclassname);
+    	    
+    	    Button Add_ok , Add_cancel ;
+    	    Add_ok = (Button)dialog_addclasspg.findViewById(R.id.Add_ok);
+    	    Add_cancel = (Button)dialog_addclasspg.findViewById(R.id.Add_cancel);
+    	    
+    	    Add_ok.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					
+					add();
+					
+					dialog_addclasspg.dismiss();
+				}
+			});
+    	    
+    	    Add_cancel.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					
+					
+					dialog_addclasspg.dismiss();
+				}
+			});
+    	    
+    	   dialog_addclasspg.show() ;
+    	    /*
+    		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        //    AlertDialog.Builder builder2 = new AlertDialog.Builder(this);  
+            
+    		builder.setTitle("新增支出類別");
+    		builder.setMessage("請輸入支出類別名稱");
+    		builder.setIcon(R.drawable.ic_launcher);
+    		
+    	/*	builder2.setTitle("新增支出類別");
+    		builder2.setMessage(classname.getText().toString());
+    		builder2.setIcon(R.drawable.ic_launcher);  */
+    		/*
+    		classname = new EditText(MainActivity.this);
+    		builder.setView(classname);
+    		
+    		builder.setPositiveButton("新增", new  DialogInterface.OnClickListener() {
+    			
+    			@Override
+    			public void onClick(DialogInterface dialog, int which) {
+    				// TODO Auto-generated method stub
+    	            add();
 
-	
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
-		
-    	Button btn = (Button) findViewById(R.id.one);
-    	btn.setEnabled(false);
-		
-		AddClass = (Button)findViewById(R.id.AddClass);
-		
-		AddClass.setOnClickListener(new OnClickListener() {
+    	    		
+    	    	//	alert2.show();
+    	            
+    			}
+    		});
+    		
+    		builder.setNegativeButton("取消", new  DialogInterface.OnClickListener() {
+    			
+    			@Override
+    			public void onClick(DialogInterface dialog, int which) {
+    				// TODO Auto-generated method stub
+    				
+    			}
+    		});
+    		
+    		alert = builder.create();
+    		
+    		alert.show();
+    		*/
+
+    		
+    		
+    	}
+
+        private void add(){
+            SQLiteDatabase db = dbhelper.getWritableDatabase();
+            ContentValues values = new ContentValues();
+            values.put(classes, addclassname.getText().toString());
+            db.insert(flashaccounting, null, values);
+
+        }
+    	
+    	@Override
+    	public boolean onCreateOptionsMenu(Menu menu) {
+    		// Inflate the menu; this adds items to the action bar if it is present.
+    		getMenuInflater().inflate(R.menu.main, menu);
+    		return true;
+    	}
+
+    	@Override
+    	public boolean onOptionsItemSelected(MenuItem item) {
+    		// Handle action bar item clicks here. The action bar will
+    		// automatically handle clicks on the Home/Up button, so long
+    		// as you specify a parent activity in AndroidManifest.xml.
+    		int id = item.getItemId();
+    		if (id == R.id.action_settings) {
+    			return true;
+    		}
+    		return super.onOptionsItemSelected(item);
+    	}
+
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
 			
-			@Override
-			public void onClick(View v) {
-				
-				AddClass();
-				// TODO Auto-generated method stub
-				
-			}
-		});
-	}
-
-	private void AddClass(){
-		
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		
-		builder.setTitle("新增支出類別");
-		builder.setMessage("請輸入支出類別名稱");
-		builder.setIcon(R.drawable.ic_launcher);
-		
-		EditText classname = new EditText(MainActivity.this);
-		builder.setView(classname);
-		
-		builder.setPositiveButton("新增", new  DialogInterface.OnClickListener() {
-			
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
-		
-		builder.setNegativeButton("取消", new  DialogInterface.OnClickListener() {
-			
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
-		
-		alert = builder.create();
-		
-		alert.show();
-		
-		
-		
-	}
-	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
 		}
-		return super.onOptionsItemSelected(item);
-	}
-}
+    
+    
+    
+//------------------------Original code end------------------------    
+    
+    
+    
+    
+
+} 
+

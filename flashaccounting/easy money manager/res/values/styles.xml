@@ -16,5 +16,9 @@
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
+    
+    <style name="dialogStyle" parent="@android:style/Theme.Dialog">
+        <item name="android:background">#449900</item>
+    </style>
 
 </resources>
