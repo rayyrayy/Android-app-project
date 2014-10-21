@@ -1,14 +1,5 @@
 package com.example.easymoneymanager;
 
-import static android.provider.BaseColumns._ID;
-import static com.example.easymoneymanager.DbConstants.flashaccounting;
-import static com.example.easymoneymanager.DbConstants.classes;
-import static com.example.easymoneymanager.DbConstants.date;
-import static com.example.easymoneymanager.DbConstants.group;
-import static com.example.easymoneymanager.DbConstants.list;
-import static com.example.easymoneymanager.DbConstants.location;
-import static com.example.easymoneymanager.DbConstants.expenditure;
-import static com.example.easymoneymanager.DbConstants.receipt;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
@@ -26,7 +17,6 @@ import android.os.Message;
 import android.os.Handler;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.widget.SimpleCursorAdapter;
 
 
@@ -35,7 +25,8 @@ import android.widget.SimpleCursorAdapter;
 // ¸ê®Æ®w«Ý­×§ï
 public class MainActivity extends Activity implements OnClickListener {
 
-    private DBHelper dbhelper = null;
+	
+	DBAdapter myDb;
 
     private TextView result = null;
     private EditText editName = null;
@@ -53,15 +44,14 @@ public class MainActivity extends Activity implements OnClickListener {
         setContentView(R.layout.activity_main);
 
         initView();
-
-        openDatabase();
+        
+        openDB();
 //        show();
 //        showInList();
 
         
 //------------------------Original code------------------------
-        Button btn = (Button) findViewById(R.id.one);
-        btn.setEnabled(false);
+
     		
     	AddClass = (Button)findViewById(R.id.AddClass);
     		
@@ -78,19 +68,24 @@ public class MainActivity extends Activity implements OnClickListener {
 //------------------------Original code end------------------------        
     }
 
+	private void displayText(String message) {
+        TextView textView = (TextView) findViewById(R.id.textDisplay);
+        textView.setText(message);
+	}
+    
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        closeDatabase();
+        closeDB();
     }
 
-    private void openDatabase(){
-        dbhelper = new DBHelper(this); 
-    }
-
-    private void closeDatabase(){
-        dbhelper.close();
-    }
+	private void openDB() {
+		myDb = new DBAdapter(this);
+		myDb.open();
+	}
+	private void closeDB() {
+		myDb.close();
+	}
 /*
     private void initView(){
         result = (TextView) findViewById(R.id.txtResult);
@@ -268,7 +263,7 @@ public class MainActivity extends Activity implements OnClickListener {
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					
-					add();
+//					add();
 					
 					dialog_addclasspg.dismiss();
 				}
@@ -331,14 +326,14 @@ public class MainActivity extends Activity implements OnClickListener {
     		
     		
     	}
-
+/*
         private void add(){
             SQLiteDatabase db = dbhelper.getWritableDatabase();
             ContentValues values = new ContentValues();
             values.put(classes, addclassname.getText().toString());
             db.insert(flashaccounting, null, values);
 
-        }
+        } */
     	
     	@Override
     	public boolean onCreateOptionsMenu(Menu menu) {

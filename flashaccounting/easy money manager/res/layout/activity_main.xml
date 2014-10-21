@@ -51,35 +51,18 @@
         android:columnCount="3"
         android:orientation="horizontal"
         android:rowCount="3" >
-
-        <Button
-            android:id="@+id/one"
-            android:height="90dp"
-            android:text="1"
-            android:width="90dp" />
-
-　　
-　　
-
-        <Button
-            android:id="@+id/two"
-            android:height="90dp"
-            android:text="2"
-            android:width="90dp" />
-
-　　　
-
-　　
-
-　　
-
-　　
-
-　　
-
-　　
-
-　　
+　　    <EditText
+        android:id="@+id/textDisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:ems="10"
+        android:gravity="top|left"
+        android:inputType="textMultiLine" >
+    </EditText>
+        
     </GridLayout>
 
     <Button
