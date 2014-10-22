@@ -8,15 +8,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+//import android.widget.TextView;
 import android.app.Dialog;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.os.Message;
+//import android.content.DialogInterface;
+//import android.os.Message;
 import android.os.Handler;
-import android.content.Context;
-import android.database.Cursor;
-import android.widget.SimpleCursorAdapter;
+//import android.content.Context;
+//import android.database.Cursor;
+//import android.widget.SimpleCursorAdapter;
 
 
 
@@ -27,6 +27,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	
 	DBAdapter myDb;
 
+	/*
     private TextView result = null;
     private EditText editName = null;
     private EditText editTel = null;
@@ -34,7 +35,7 @@ public class MainActivity extends Activity implements OnClickListener {
     private EditText editId = null;
     private Button btnAdd = null;
     private Button btnDel = null;
-    private Button btnUpdate = null;
+    private Button btnUpdate = null;  */
 
 
     @Override
@@ -44,7 +45,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
         initView();
         
-        openDB();
+//        openDB();
 //        show();
 //        showInList();
 
@@ -67,26 +68,26 @@ public class MainActivity extends Activity implements OnClickListener {
 //------------------------Original code end------------------------        
     }
 
-	private void displayText(String message) {
+/*	private void displayText(String message) {
         TextView textView = (TextView) findViewById(R.id.textDisplay);
         textView.setText(message);
 	}
-    
+    */
+/*    
     @Override
     protected void onDestroy() {
         super.onDestroy();
         closeDB();
-    }
+    }*/
 
-	private void openDB() {
+/*	private void openDB() {
 		myDb = new DBAdapter(this);
 		myDb.open();
 	}
 	private void closeDB() {
 		myDb.close();
 		
-		myDb.DATABASE_TABLE = "a" ;
-	}
+	}*/
 /*
     private void initView(){
         result = (TextView) findViewById(R.id.txtResult);
@@ -214,8 +215,8 @@ public class MainActivity extends Activity implements OnClickListener {
 //------------------------Original code------------------------
     
     private Button AddClass ;
-    private Handler handle;
-    private AlertDialog alert , alert2;
+//    private Handler handle;
+//    private AlertDialog alert , alert2;
     public  EditText classname ;
     private void initView(){
 
@@ -252,7 +253,7 @@ public class MainActivity extends Activity implements OnClickListener {
     	    
     	    dialog_addclasspg.setTitle("新增支出類別");
     	    
-    	    EditText addclassname = (EditText)dialog_addclasspg.findViewById(R.id.addclassname);
+    //	    EditText addclassname = (EditText)dialog_addclasspg.findViewById(R.id.addclassname);
     	    
     	    Button Add_ok , Add_cancel ;
     	    Add_ok = (Button)dialog_addclasspg.findViewById(R.id.Add_ok);
