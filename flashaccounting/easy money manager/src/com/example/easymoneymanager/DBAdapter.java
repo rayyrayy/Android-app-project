@@ -218,7 +218,7 @@ public class DBAdapter {
 		@Override
 		public void onCreate(SQLiteDatabase _db) {
 			_db.execSQL(create_table("transportation"));
-			_db.execSQL(create_table("eating"));
+//			_db.execSQL(create_table("eating"));
 		}
 
 		@Override

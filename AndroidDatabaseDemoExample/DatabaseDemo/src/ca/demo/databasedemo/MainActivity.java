@@ -51,7 +51,15 @@ public class MainActivity extends Activity {
         textView.setText(message);
 	}
 	
-	
+	public void onclickone(){
+		 myDb.tablename="First" ;
+		 displayText("First");
+	}
+
+	public void onclicktwo(){
+		 myDb.tablename="Second" ;
+		 displayText("Second");
+	}
 
 	public void onClick_AddRecord(View v) {
 		displayText("Clicked add record!");

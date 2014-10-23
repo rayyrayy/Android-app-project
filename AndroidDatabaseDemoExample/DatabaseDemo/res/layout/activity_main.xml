@@ -51,4 +51,22 @@
         android:inputType="textMultiLine" >
     </EditText>
 
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textDisplay"
+        android:layout_alignLeft="@+id/textDisplay"
+        android:onClick="onclickone"
+        android:text="資料庫一" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:onClick="onclicktwo"
+        android:text="資料庫二" />
+
 </RelativeLayout>

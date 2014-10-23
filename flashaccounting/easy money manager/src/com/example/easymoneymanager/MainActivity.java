@@ -45,7 +45,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
         initView();
         
-//        openDB();
+        openDB();
 //        show();
 //        showInList();
 
@@ -80,14 +80,14 @@ public class MainActivity extends Activity implements OnClickListener {
         closeDB();
     }*/
 
-/*	private void openDB() {
+	private void openDB() {
 		myDb = new DBAdapter(this);
 		myDb.open();
 	}
 	private void closeDB() {
 		myDb.close();
 		
-	}*/
+	}
 /*
     private void initView(){
         result = (TextView) findViewById(R.id.txtResult);

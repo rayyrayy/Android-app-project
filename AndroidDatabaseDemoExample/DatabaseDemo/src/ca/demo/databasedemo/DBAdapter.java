@@ -43,12 +43,16 @@ public class DBAdapter {
 	
 	// DB info: it's name, and the table we are using (just one).
 	public static final String DATABASE_NAME = "MyDb";
-	public static final String DATABASE_TABLE = "mainTable";
+	
+	public static String tablename = "First"; 
+	public static String DATABASE_TABLE = tablename;
 	// Track DB version if a new version of your app changes the format.
 	public static final int DATABASE_VERSION = 2;	
 	
-	private static final String DATABASE_CREATE_SQL = 
-			"create table " + DATABASE_TABLE 
+	
+	static String create_table(String TABLE){
+			String DATABASE_CREATE_SQL = 
+			"create table " + TABLE 
 			+ " (" + KEY_ROWID + " integer primary key autoincrement, "
 			
 			/*
@@ -67,7 +71,8 @@ public class DBAdapter {
 			
 			// Rest  of creation:
 			+ ");";
-	
+			return  DATABASE_CREATE_SQL ;
+	}
 	// Context of application who uses us.
 	private final Context context;
 	
@@ -151,7 +156,7 @@ public class DBAdapter {
 	}
 	
 	// Change an existing row to be equal to new data.
-	public boolean updateRow(long rowId, String name, int studentNum, String favColour) {
+	public boolean updateRow(long rowId, String name, int studentNum, String favColour , String DATABASE_TABLE) {
 		String where = KEY_ROWID + "=" + rowId;
 
 		/*
@@ -187,11 +192,15 @@ public class DBAdapter {
 
 		@Override
 		public void onCreate(SQLiteDatabase _db) {
-			_db.execSQL(DATABASE_CREATE_SQL);			
+			_db.execSQL("create table " + "First"+ "("+"_id"+" integer primary key autoincrement, "+"name"+ " text not null, "
+			+"studentnum"+" integer not null, "+"favcolour"+"string not null "+");");
+
+//			_db.execSQL(create_table("First"));		
+			_db.execSQL(create_table("Second"));		
 		}
 
 		@Override
-		public void onUpgrade(SQLiteDatabase _db, int oldVersion, int newVersion) {
+		public void onUpgrade(SQLiteDatabase _db, int oldVersion, int newVersion ) {
 			Log.w(TAG, "Upgrading application's database from version " + oldVersion
 					+ " to " + newVersion + ", which will destroy all old data!");
 			
@@ -200,6 +209,6 @@ public class DBAdapter {
 			
 			// Recreate new database:
 			onCreate(_db);
-		}
+		} 
 	}
 }
