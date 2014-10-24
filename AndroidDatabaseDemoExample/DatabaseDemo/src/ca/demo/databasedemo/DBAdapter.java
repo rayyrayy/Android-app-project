@@ -174,8 +174,12 @@ public class DBAdapter {
 		return db.update(DATABASE_TABLE, newValues, where, null) != 0;
 	}
 	
-	
-	
+	public void createdb(String name){
+		db.execSQL(create_table(name));
+	}
+	public void deletedb(String name){
+		db.execSQL("DROP TABLE " + name);
+	}
 	/////////////////////////////////////////////////////////////////////
 	//	Private Helper Classes:
 	/////////////////////////////////////////////////////////////////////
@@ -192,9 +196,9 @@ public class DBAdapter {
 
 		@Override
 		public void onCreate(SQLiteDatabase _db) {
-			_db.execSQL("create table " + "First"+ "("+"_id"+" integer primary key autoincrement, "+"name"+ " text not null, "
+/*			_db.execSQL("create table " + "First"+ "("+"_id"+" integer primary key autoincrement, "+"name"+ " text not null, "
 			+"studentnum"+" integer not null, "+"favcolour"+"string not null "+");");
-
+*/
 //			_db.execSQL(create_table("First"));		
 			_db.execSQL(create_table("Second"));		
 		}

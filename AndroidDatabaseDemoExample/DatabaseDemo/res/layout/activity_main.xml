@@ -69,4 +69,13 @@
         android:onClick="onclicktwo"
         android:text="資料庫二" />
 
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textDisplay"
+        android:layout_alignParentRight="true"
+        android:onClick="onclickdelete"
+        android:text="delete" />
+
 </RelativeLayout>

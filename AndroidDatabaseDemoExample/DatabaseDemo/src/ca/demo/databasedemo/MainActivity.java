@@ -51,14 +51,21 @@ public class MainActivity extends Activity {
         textView.setText(message);
 	}
 	
-	public void onclickone(){
+	public void onclickone(View v){
 		 myDb.tablename="First" ;
 		 displayText("First");
+		 myDb.createdb("First");
 	}
 
-	public void onclicktwo(){
+	public void onclicktwo(View v){
 		 myDb.tablename="Second" ;
 		 displayText("Second");
+		 myDb.createdb("Second");
+	}
+	public void onclickdelete(View v){
+		 myDb.tablename="Second" ;
+		 displayText("delete");
+		 myDb.deletedb("First");
 	}
 
 	public void onClick_AddRecord(View v) {
