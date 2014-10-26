@@ -13,20 +13,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.TextView;
-<<<<<<< HEAD
 import android.widget.Toast;
 import android.app.Dialog;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.ContentValues;
 import android.content.Intent;
-=======
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnMultiChoiceClickListener;
->>>>>>> c4852b2307bda187806f072cc32a3fe24bf47f88
 import android.os.Message;
 import android.os.Handler;
 import android.content.Context;
@@ -40,8 +37,7 @@ import android.widget.Toast;
 // 資料庫待修改
 public class MainActivity extends Activity implements OnClickListener {
 
-<<<<<<< HEAD
-    private DBHelper dbhelper = null;
+    private DBAdapter dbhelper = null;
 
     private TextView result = null;
     private EditText editName = null;
@@ -53,10 +49,10 @@ public class MainActivity extends Activity implements OnClickListener {
     private Button btnUpdate = null;
     private Button btnInMoney = null;		//暫時挪作他使用的收入按鈕
 
-=======
+
 	
 	DBAdapter myDb;
->>>>>>> c4852b2307bda187806f072cc32a3fe24bf47f88
+
 
 	public int btn_num =0 ;
 	
@@ -72,7 +68,7 @@ public class MainActivity extends Activity implements OnClickListener {
 //        showInList();
 
         
-<<<<<<< HEAD
+
     
 //-------------------------------------------------------------mauching
         Button btnInMoney = (Button)findViewById(R.id.button3);			//收入按鈕
@@ -81,7 +77,7 @@ public class MainActivity extends Activity implements OnClickListener {
         
         
 //-------------------------------------------------------------mauching
-=======
+
       /*  
         for (int i = 0 ; i < 9 ; i++){
         	String name =myDb.get_CT_Row(i);
@@ -90,7 +86,7 @@ public class MainActivity extends Activity implements OnClickListener {
         */
         
         
->>>>>>> c4852b2307bda187806f072cc32a3fe24bf47f88
+
 //------------------------Original code------------------------
 
     		
@@ -110,8 +106,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
     }
 
-<<<<<<< HEAD
-    
+  
   //-------------------------Activity 生命週期------------------------------------mauching
 	@Override
 	protected void onStart() {		
@@ -151,7 +146,7 @@ public class MainActivity extends Activity implements OnClickListener {
     }
 
     private void openDatabase(){
-        dbhelper = new DBHelper(this); 
+        dbhelper = new DBAdapter(this); 
     }
 
     private void closeDatabase(){
@@ -416,7 +411,6 @@ public class MainActivity extends Activity implements OnClickListener {
 =======
     		
     	}*/
->>>>>>> c4852b2307bda187806f072cc32a3fe24bf47f88
     	
     	@Override
     	public boolean onCreateOptionsMenu(Menu menu) {
