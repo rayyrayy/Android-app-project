@@ -13,20 +13,20 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.TextView;
-<<<<<<< HEAD
+
 import android.widget.Toast;
 import android.app.Dialog;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.ContentValues;
 import android.content.Intent;
-=======
+
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnMultiChoiceClickListener;
->>>>>>> c4852b2307bda187806f072cc32a3fe24bf47f88
+
 import android.os.Message;
 import android.os.Handler;
 import android.content.Context;
@@ -40,23 +40,7 @@ import android.widget.Toast;
 // 資料庫待修改
 public class MainActivity extends Activity implements OnClickListener {
 
-<<<<<<< HEAD
-    private DBHelper dbhelper = null;
-
-    private TextView result = null;
-    private EditText editName = null;
-    private EditText editTel = null;
-    private EditText editEmail = null;
-    private EditText editId = null;
-    private Button btnAdd = null;
-    private Button btnDel = null;
-    private Button btnUpdate = null;
-    private Button btnInMoney = null;		//暫時挪作他使用的收入按鈕
-
-=======
-	
 	DBAdapter myDb;
->>>>>>> c4852b2307bda187806f072cc32a3fe24bf47f88
 
 	public int btn_num =0 ;
 	
@@ -72,8 +56,8 @@ public class MainActivity extends Activity implements OnClickListener {
 //        showInList();
 
         
-<<<<<<< HEAD
-    
+
+  /*  
 //-------------------------------------------------------------mauching
         Button btnInMoney = (Button)findViewById(R.id.button3);			//收入按鈕
         btnInMoney.setOnClickListener(inMoneyListener);
@@ -81,7 +65,7 @@ public class MainActivity extends Activity implements OnClickListener {
         
         
 //-------------------------------------------------------------mauching
-=======
+
       /*  
         for (int i = 0 ; i < 9 ; i++){
         	String name =myDb.get_CT_Row(i);
@@ -90,7 +74,7 @@ public class MainActivity extends Activity implements OnClickListener {
         */
         
         
->>>>>>> c4852b2307bda187806f072cc32a3fe24bf47f88
+
 //------------------------Original code------------------------
 
     		
@@ -110,9 +94,10 @@ public class MainActivity extends Activity implements OnClickListener {
 
     }
 
-<<<<<<< HEAD
+
     
   //-------------------------Activity 生命週期------------------------------------mauching
+    /*
 	@Override
 	protected void onStart() {		
 		super.onStart();
@@ -150,13 +135,7 @@ public class MainActivity extends Activity implements OnClickListener {
         closeDatabase();
     }
 
-    private void openDatabase(){
-        dbhelper = new DBHelper(this); 
-    }
 
-    private void closeDatabase(){
-        dbhelper.close();
-    }
  //-------------------------------------------------------------mauching
  //-------------聽btnInMoeny按鈕事件，並呼叫新的Activity-------------------mauching   
     private Button.OnClickListener inMoneyListener = new Button.OnClickListener(){
@@ -168,111 +147,13 @@ public class MainActivity extends Activity implements OnClickListener {
     	}
     };
 //---------------------------------------------------------------mauching    
+ *  
+ */
     
-/*
-    private void initView(){
-        result = (TextView) findViewById(R.id.txtResult);
-        editName = (EditText) findViewById(R.id.editName);
-        editTel = (EditText) findViewById(R.id.editTel);
-        editEmail = (EditText) findViewById(R.id.editEmail);
-        editId = (EditText) findViewById(R.id.editId);
-        btnAdd = (Button) findViewById(R.id.btnAdd);
-        btnDel = (Button) findViewById(R.id.btnDel);
-        btnUpdate = (Button) findViewById(R.id.btnUpdate);
-        btnAdd.setOnClickListener(this);
-        btnDel.setOnClickListener(this);
-        btnUpdate.setOnClickListener(this);        
-    }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-        case R.id.btnAdd:
-            add();
-            break;
 
-        case R.id.btnDel:
-            del();
-            break;
+ 
 
-        case R.id.btnUpdate:
-            update();
-            break;
-
-        default:
-            break;
-        }
-
-        show();
-        showInList();
-    }
-
-    private void add(){
-        SQLiteDatabase db = dbhelper.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(NAME, editName.getText().toString());
-        values.put(TEL, editTel.getText().toString());
-        values.put(EMAIL, editEmail.getText().toString());
-        db.insert(TABLE_NAME, null, values);
-
-        cleanEditText();
-    }
-
-    private Cursor getCursor(){
-        SQLiteDatabase db = dbhelper.getReadableDatabase();
-        String[] columns = {_ID, NAME, TEL, EMAIL};
-
-        Cursor cursor = db.query(TABLE_NAME, columns, null, null, null, null, null);
-        startManagingCursor(cursor);
-
-        return cursor;
-    }
-
-    private void show(){
-
-        Cursor cursor = getCursor();
-
-        StringBuilder resultData = new StringBuilder("RESULT: \n");
-
-        while(cursor.moveToNext()){
-            int id = cursor.getInt(0);
-            String name = cursor.getString(1);
-            String tel = cursor.getString(2);
-            String email = cursor.getString(3);
-
-            resultData.append(id).append(": ");
-            resultData.append(name).append(": ");
-            resultData.append(tel).append(": ");
-            resultData.append(email).append(": ");
-            resultData.append("\n");
-        }
-
-        result.setText(resultData);
-    }
-
-    private void showInList(){
-
-        Cursor cursor = getCursor();
-
-        String[] from = {_ID, NAME, TEL, EMAIL};
-        int[] to = {R.id.txtId, R.id.txtName, R.id.txtTel, R.id.txtEmail};
-
-        SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.data_item, cursor, from, to);
-        listData.setAdapter(adapter);
-    }
-
-    private void del(){
-        String id = editId.getText().toString();
-
-        SQLiteDatabase db = dbhelper.getWritableDatabase();
-        db.delete(TABLE_NAME, _ID + "=" + id, null);
-
-        cleanEditText();
-    }
-
-    private void update(){
-        String id = editId.getText().toString();
-=======
 	private void openDB() {
 		myDb = new DBAdapter(this);
 		myDb.open();
@@ -300,7 +181,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		
 		grid.addView(btn);
 	}
->>>>>>> c4852b2307bda187806f072cc32a3fe24bf47f88
+
 
     
 //------------------------Original code------------------------
@@ -378,6 +259,7 @@ public class MainActivity extends Activity implements OnClickListener {
     		//Toast.makeText(this, "text", Toast.LENGTH_LONG).show();
     	}
     	
+    	/*
     	public void DelClass(){
     		
     		myDb.delete_CT_Row(0);
@@ -385,7 +267,7 @@ public class MainActivity extends Activity implements OnClickListener {
     		
     	}
     	
-    	/*
+    	
     	private void DelClass(){
     		
     		
@@ -403,20 +285,10 @@ public class MainActivity extends Activity implements OnClickListener {
     		alert.show();
     		
     		
-<<<<<<< HEAD
-    	}
 
-        private void add(){
-            SQLiteDatabase db = dbhelper.getWritableDatabase();
-            ContentValues values = new ContentValues();
- //           values.put(classes, addclassname.getText().toString());
-            db.insert(flashaccounting, null, values);
+    	}  */
 
-        }
-=======
-    		
-    	}*/
->>>>>>> c4852b2307bda187806f072cc32a3fe24bf47f88
+
     	
     	@Override
     	public boolean onCreateOptionsMenu(Menu menu) {
@@ -438,5 +310,5 @@ public class MainActivity extends Activity implements OnClickListener {
     
     
 
-} 
+} 		
 
