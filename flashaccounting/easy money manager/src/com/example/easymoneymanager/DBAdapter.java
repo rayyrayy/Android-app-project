@@ -11,9 +11,25 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 
-// TO USE:
-// Change the package (at top) to match your project.
-// Search for "TODO", and make the appropriate changes.
+
+//--------------------------CT=CategoryTable--------------------------\\
+//----------------------------MT=MemoTable----------------------------\\
+/* 兩個資料表 , 第一個 CategoryTable用來存class、group以及total
+ * 			第二個MemoTable用來存list、money、date、location、photo、CategoryTableID
+ * 
+ *  CategoryTable
+ *--------------------------------------------------------------------------------------------------
+ * |	_id		|	 group	|	class	|	total	|
+ *--------------------------------------------------------------------------------------------------
+ *
+ *	MemoTable
+ *--------------------------------------------------------------------------------------------------
+ * |	_id		|	list	|	money	|	date	|	location	|	photo	|	CategoryTableID|
+ *--------------------------------------------------------------------------------------------------
+ * */
+
+
+
 public class DBAdapter {
 
 	/////////////////////////////////////////////////////////////////////
@@ -23,71 +39,82 @@ public class DBAdapter {
 	private static final String TAG = "DBAdapter";
 	
 	// DB Fields
-	public static final String flashaccounting_ROWID = "_id";
-	public static final int flashaccounting_COL_ROWID = 0;
+
 
 	/*
 	 * CHANGE 1:
 	 */
 	// TODO: Setup your fields here:
-	public static final String flashaccounting_expenditure_or_receipt = "expenditure_or_receipt";
-	public static final String flashaccounting_list = "list";
-	public static final String flashaccounting_money = "money";
-	public static final String flashaccounting_date = "date";
-	public static final String flashaccounting_location = "location";
-	public static final String flashaccounting_group = "group";
-	public static final String flashaccounting_photo = "photo";
-
+	
+	//CategoryTable definition
+	public static final String CT_ROWID = "_id";
+	public static final int CT_COL_ROWID = 0;
+	public static final String CT_group = "groupname";
+	public static final String CT_class = "classname";
+	public static final String CT_total = "totalmoney";
 	
 	
 	// TODO: Setup your field numbers here (0 = KEY_ROWID, 1=...)
-	public static final int COL_expenditure_or_receipt = 2;
-	public static final int COL_list = 2;
-	public static final int COL_money = 3;
-	public static final int COL_date = 4;
-	public static final int COL_location = 5;
-	public static final int COL_group = 6;
-	public static final int COL_photo = 7;
+	public static final int CT_COL_group = 1;
+	public static final int CT_COL_class = 2;
+	public static final int CT_COL_total = 3;
+
+	//MemoTable definition
+	public static final String MT_ROWID = "_id";
+	public static final int MT_COL_ROWID = 0;
+	public static final String MT_list = "list";
+	public static final String MT_money = "money";
+	public static final String MT_date = "date";
+	public static final String MT_location = "location";
+	public static final String MT_photo = "photo";
+	public static final String MT_CategoryTableID = "CategoryTableID";
 	
+	// TODO: Setup your field numbers here (0 = KEY_ROWID, 1=...)
+	public static final int MT_COL_list = 1;
+	public static final int MT_COL_money = 2;
+	public static final int MT_COL_date = 3;
+	public static final int MT_COL_location = 4;
+	public static final int MT_COL_photo = 5;
+	public static final int MT_COL_CategoryTableID = 6;
 
 
 	
-	public static final String[] ALL_flashaccounting = new String[] {flashaccounting_ROWID, flashaccounting_expenditure_or_receipt,
-		flashaccounting_list , flashaccounting_money, flashaccounting_date, flashaccounting_location, flashaccounting_group, flashaccounting_photo};
+	public static final String[] ALL_CT = new String[] {CT_ROWID, CT_group, CT_class,
+		CT_total};
+	
+	public static final String[] ALL_MT = new String[] {MT_ROWID, MT_list, MT_money,
+		MT_date,MT_location,MT_photo,MT_CategoryTableID};
 	
 	// DB info: it's name, and the table we are using (just one).
-	public static final String DATABASE_NAME = "flashaccounting";
-	public static String DATABASE_TABLE = "mainTable";
+	public static final String DATABASE_NAME = "FlashAccounting";
 	// Track DB version if a new version of your app changes the format.
 	public static int DATABASE_VERSION = 1;	
 	
 	
-	static String create_table(String tablename ){
+	static String create_CT_table(){
 			String DATABASE_CREATE_SQL = 
-			"create table " + tablename 
-			+ " (" + flashaccounting_ROWID + " integer primary key autoincrement, "
-			
-			/*
-			 * CHANGE 2:
-			 */
-			// TODO: Place your fields here!
-			// + KEY_{...} + " {type} not null"
-			//	- Key is the column name you created above.
-			//	- {type} is one of: text, integer, real, blob
-			//		(http://www.sqlite.org/datatype3.html)
-			//  - "not null" means it is a required field (must be given a value).
-			// NOTE: All must be comma separated (end of line!) Last one must have NO comma!!
-			+ flashaccounting_expenditure_or_receipt + " integer not null, "
-			+ flashaccounting_list + " string not null, "
-			+ flashaccounting_money + " integer not null, "
-			+ flashaccounting_date + " string not null"
-			+ flashaccounting_location + " string not null, "
-			+ flashaccounting_group + " string not null, "
-			+ flashaccounting_photo + " string not null, "
-			
-			// Rest  of creation:
-			+ ");";
+			" create table " + " CategoryTable " 
+			+ " ( " + CT_ROWID + " integer primary key autoincrement, "
+			+ CT_group + " string not null, "
+			+ CT_class + " string not null, "
+			+ CT_total + " integer  "
+			+ " ); ";
 			return DATABASE_CREATE_SQL;
+	}
+	
+	
+	static String create_MT_table(){
+		String DATABASE_CREATE_SQL = 
+		" create table " + " MemoTable " 
+		+ " ( " + MT_ROWID + " integer primary key autoincrement, "
+		+ MT_list + " string not null, "
+		+ MT_money + " integer not null, "
+		+ MT_date + " string not null, "
+		+ MT_location + " string , "
+		+ MT_photo + " string , "
+		+ MT_CategoryTableID + " int not null  "
+		+ " ); ";
+		return DATABASE_CREATE_SQL;
 	}
 	// Context of application who uses us.
 	private final Context context;
@@ -116,47 +143,63 @@ public class DBAdapter {
 	}
 	
 	// Add a new set of values to the database.
-	public long insertRow(int expenditure_or_receipt, String list, int money, String date,
-			String location, String group, String photo, String DATABASE_TABLE) {
-		/*
-		 * CHANGE 3:
-		 */		
-		// TODO: Update data in the row with new fields.
-		// TODO: Also change the function's arguments to be what you need!
-		// Create row's data:
+	public long insert_CT_Row(String groupname, String classname, int total) {
+		
 		ContentValues initialValues = new ContentValues();
-		initialValues.put(flashaccounting_expenditure_or_receipt, expenditure_or_receipt);
-		initialValues.put(flashaccounting_list, list);
-		initialValues.put(flashaccounting_money, money);
-		initialValues.put(flashaccounting_date, date);
-		initialValues.put(flashaccounting_location, location);
-		initialValues.put(flashaccounting_group, group);
-		initialValues.put(flashaccounting_photo, photo);
+		initialValues.put(CT_group, groupname);
+		initialValues.put(CT_class, classname);
+		initialValues.put(CT_total, total);
+
 		// Insert it into the database.
-		return db.insert(DATABASE_TABLE, null, initialValues);
+		return db.insert("CategoryTable", null, initialValues);
+		
+	}
+	
+	
+	// Add a new set of values to the database.
+	public long insert_MT_Row(String list, int money, String date,
+			String location, String group, String photo, int CategoryTableID) {
+
+		ContentValues initialValues = new ContentValues();
+		initialValues.put(MT_list, list);
+		initialValues.put(MT_money, money);
+		initialValues.put(MT_date, date);
+		initialValues.put(MT_location, location);
+		initialValues.put(MT_photo, photo);
+		initialValues.put(MT_CategoryTableID, CategoryTableID);
+		// Insert it into the database.
+
+		return db.insert("MemoTable", null, initialValues);
 	}
 	
 	// Delete a row from the database, by rowId (primary key)
-	public boolean deleteRow(long rowId, String DATABASE_TABLE) {
-		String where = flashaccounting_ROWID + "=" + rowId;
-		return db.delete(DATABASE_TABLE, where, null) != 0;
+	public boolean delete_CT_Row(long rowId) {
+		String where = CT_ROWID + "=" + rowId;
+		return db.delete("CategoryTable", where, null) != 0;
 	}
 	
-	public void deleteAll(String DATABASE_TABLE) {
-		Cursor c = getAllRows(DATABASE_TABLE);
-		long rowId = c.getColumnIndexOrThrow(flashaccounting_ROWID);
+	public boolean delete_MT_Row(long rowId) {
+		String where = MT_ROWID + "=" + rowId;
+		return db.delete("MemoTable", where, null) != 0;
+	}
+	
+	
+	/* Not use yet
+	public void deleteAll() {
+		Cursor c = getAllRows();
+		long rowId = c.getColumnIndexOrThrow(CT_ROWID);
 		if (c.moveToFirst()) {
 			do {
-				deleteRow(c.getLong((int) rowId),  DATABASE_TABLE);				
+				deleteRow(c.getLong((int) rowId));				
 			} while (c.moveToNext());
 		}
 		c.close();
 	}
 	
 	// Return all data in the database.
-	public Cursor getAllRows(String DATABASE_TABLE) {
+	public Cursor getAllRows() {
 		String where = null;
-		Cursor c = 	db.query(true, DATABASE_TABLE, ALL_flashaccounting, 
+		Cursor c = 	db.query(true, DATABASE_TABLE, ALL_CT, 
 							where, null, null, null, null, null);
 		if (c != null) {
 			c.moveToFirst();
@@ -164,10 +207,25 @@ public class DBAdapter {
 		return c;
 	}
 
-	// Get a specific row (by rowId)
-	public Cursor getRow(long rowId , String DATABASE_TABLE) {
-		String where = flashaccounting_ROWID + "=" + rowId;
-		Cursor c = 	db.query(true, DATABASE_TABLE, ALL_flashaccounting, 
+	//
+	 * 
+	 */
+	
+	
+	
+	public String get_CT_Row(long rowId) {
+		String where = CT_ROWID + "=" + rowId;
+		Cursor c = 	db.query(true, "CategoryTable", ALL_CT, 
+						where, null, null, null, null, null);
+		if (c != null) {
+			c.moveToFirst();
+		}
+		return c.getString(2);
+	}
+	
+	public Cursor get_MT_Row(long rowId) {
+		String where = MT_ROWID + "=" + rowId;
+		Cursor c = 	db.query(true, "MemoTable", ALL_MT, 
 						where, null, null, null, null, null);
 		if (c != null) {
 			c.moveToFirst();
@@ -176,27 +234,34 @@ public class DBAdapter {
 	}
 	
 	// Change an existing row to be equal to new data.
-	public boolean updateRow(long rowId,int expenditure_or_receipt, String list, int money, String date,
-			String location, String group, String photo, String DATABASE_TABLE) {
-		String where = flashaccounting_ROWID + "=" + rowId;
+	public boolean update_CT_Row(long rowId,String groupname, String classname, int total) {
+		String where = CT_ROWID + "=" + rowId;
 
-		/*
-		 * CHANGE 4:
-		 */
-		// TODO: Update data in the row with new fields.
-		// TODO: Also change the function's arguments to be what you need!
-		// Create row's data:
 		ContentValues newValues = new ContentValues();
-		newValues.put(flashaccounting_expenditure_or_receipt, expenditure_or_receipt);
-		newValues.put(flashaccounting_list, list);
-		newValues.put(flashaccounting_money, money);
-		newValues.put(flashaccounting_date, date);
-		newValues.put(flashaccounting_location, location);
-		newValues.put(flashaccounting_group, group);
-		newValues.put(flashaccounting_photo, photo);
+
+		newValues.put(CT_group, groupname);
+		newValues.put(CT_class, classname);
+		newValues.put(CT_total, total);
 		
 		// Insert it into the database.
-		return db.update(DATABASE_TABLE, newValues, where, null) != 0;
+		return db.update("CategoryTable", newValues, where, null) != 0;
+	}
+	
+	public boolean update_MT_Row(long rowId,String list, int money, String date,
+			String location, String group, String photo, int CategoryTableID) {
+		String where = MT_ROWID + "=" + rowId;
+
+		ContentValues newValues = new ContentValues();
+
+		newValues.put(MT_list, list);
+		newValues.put(MT_money, money);
+		newValues.put(MT_date, date);
+		newValues.put(MT_location, location);
+		newValues.put(MT_photo, photo);
+		newValues.put(MT_CategoryTableID, CategoryTableID);
+		
+		// Insert it into the database.
+		return db.update("MemoTable", newValues, where, null) != 0;
 	}
 	
 	
@@ -217,8 +282,11 @@ public class DBAdapter {
 
 		@Override
 		public void onCreate(SQLiteDatabase _db) {
-			_db.execSQL(create_table("transportation"));
-//			_db.execSQL(create_table("eating"));
+			Log.i("database","start");
+			_db.execSQL(create_CT_table());
+			Log.i("CT","success");
+			_db.execSQL(create_MT_table());
+			Log.i("MT","success");
 		}
 
 		@Override
@@ -227,10 +295,12 @@ public class DBAdapter {
 					+ " to " + newVersion + ", which will destroy all old data!");
 			
 			// Destroy old database:
-			_db.execSQL("DROP TABLE IF EXISTS " + DATABASE_TABLE);
+			//_db.execSQL("DROP TABLE IF EXISTS " + DATABASE_TABLE);
 			
 			// Recreate new database:
 			onCreate(_db);
 		}
 	}
 }
+
+
