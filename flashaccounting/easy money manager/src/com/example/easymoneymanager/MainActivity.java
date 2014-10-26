@@ -42,7 +42,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	DBAdapter myDb;
 
-	public int btn_num =0 ;
+	public int btn_num =1 ;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -65,13 +65,13 @@ public class MainActivity extends Activity implements OnClickListener {
         
         
 //-------------------------------------------------------------mauching
-
-      /*  
-        for (int i = 0 ; i < 9 ; i++){
+*/
+      
+        for (int i = 1 ; i < 3 ; i++){
         	String name =myDb.get_CT_Row(i);
         	if (name != null)create_btn(name) ;
         }
-        */
+        
         
         
 
@@ -95,9 +95,9 @@ public class MainActivity extends Activity implements OnClickListener {
     }
 
 
-    
+/*    
   //-------------------------Activity 生命週期------------------------------------mauching
-    /*
+    
 	@Override
 	protected void onStart() {		
 		super.onStart();
@@ -132,9 +132,8 @@ public class MainActivity extends Activity implements OnClickListener {
 	protected void onDestroy() {    	
 		super.onDestroy();
 		Toast.makeText(getApplicationContext(),"onDestroy(1)",Toast.LENGTH_SHORT).show();
-        closeDatabase();
     }
-
+*/
 
  //-------------------------------------------------------------mauching
  //-------------聽btnInMoeny按鈕事件，並呼叫新的Activity-------------------mauching   
@@ -147,9 +146,7 @@ public class MainActivity extends Activity implements OnClickListener {
     	}
     };
 //---------------------------------------------------------------mauching    
- *  
- */
-    
+
 
 
  
@@ -180,6 +177,8 @@ public class MainActivity extends Activity implements OnClickListener {
 		btn.setText(classname);
 		
 		grid.addView(btn);
+		
+		btn_num = btn_num +1 ;
 	}
 
 
@@ -252,11 +251,10 @@ public class MainActivity extends Activity implements OnClickListener {
 
     	public void querytable(View v){
          
-    		//for (int i = 0 ; i < 1 ; i++){
-            	String name =myDb.get_CT_Row(1);
+    		for (int i = 1 ; i < 3 ; i++){
+            	String name =myDb.get_CT_Row(i);
             	if (name != null) ; Toast.makeText(this, name, Toast.LENGTH_LONG).show();
-         //   }
-    		//Toast.makeText(this, "text", Toast.LENGTH_LONG).show();
+            }
     	}
     	
     	/*
