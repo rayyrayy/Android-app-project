@@ -195,11 +195,11 @@ public class DBAdapter {
 		}
 		c.close();
 	}
-	
+	*/
 	// Return all data in the database.
-	public Cursor getAllRows() {
+	public Cursor getAll_CT_Rows() {
 		String where = null;
-		Cursor c = 	db.query(true, DATABASE_TABLE, ALL_CT, 
+		Cursor c = 	db.query(true, "CategoryTable", ALL_CT, 
 							where, null, null, null, null, null);
 		if (c != null) {
 			c.moveToFirst();
@@ -207,11 +207,6 @@ public class DBAdapter {
 		return c;
 	}
 
-	//
-	 * 
-	 */
-	
-	
 	
 	public String get_CT_Row(long rowId) {
 		String where = CT_ROWID + "=" + rowId;

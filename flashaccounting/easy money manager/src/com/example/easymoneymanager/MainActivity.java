@@ -1,5 +1,6 @@
 package com.example.easymoneymanager;
 
+import com.example.easymoneymanager.DBAdapter;
 import android.app.Activity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -41,7 +42,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	DBAdapter myDb;
 
 
-	public int btn_num =0 ;	
+	public int btn_num =1 ;	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,11 +63,11 @@ public class MainActivity extends Activity implements OnClickListener {
         
 //-------------------------------------------------------------mauching
         	
-        	for(int i = 1 ; i < 3 ; i++ ){
-        	String name =myDb.get_CT_Row(i);
-        	if (name != null)create_btn(name) ;
-        }
-        
+
+        	Cursor name =myDb.getAll_CT_Rows();
+        	Log.i("button", "begin");
+        	create_btn(null , name) ;
+
         
 //------------------------Original code------------------------
 
@@ -155,21 +156,48 @@ public class MainActivity extends Activity implements OnClickListener {
 	
 	//private String[] opts = new String[] { "123" , "456" };
 	
-	private void create_btn(String classname){
+	private void create_btn(String classname , Cursor name){
 		
+		if (name != null){
+		if (name.moveToFirst()) {
+			do {
+				classname = name.getString(2);
+
+				Log.i("in the middle", "1");
+
+				GridLayout grid = (GridLayout) findViewById(R.id.gridLayout1) ;
+				
+				Button btn = new Button(this);
+		
+				btn.setLayoutParams(new LayoutParams(200, 200));
+		
+				btn.setId(btn_num);
+		
+				btn.setText(classname);
+		
+				grid.addView(btn);
+		
+				btn_num = btn_num +1 ;
+		
+			} while(name.moveToNext());
+		}}
+		else {
 		GridLayout grid = (GridLayout) findViewById(R.id.gridLayout1) ;
 		
 		Button btn = new Button(this);
-		
+
 		btn.setLayoutParams(new LayoutParams(200, 200));
-		
+
 		btn.setId(btn_num);
-		
+
 		btn.setText(classname);
-		
+
 		grid.addView(btn);
-		
+
 		btn_num = btn_num +1 ;
+		}
+		// Close the cursor to avoid a resource leak.
+		name.close();
 	}
 
 
@@ -218,7 +246,7 @@ public class MainActivity extends Activity implements OnClickListener {
 					String classname =str.toString();
 					Log.i("edit text" , classname);
 //					add();
-					create_btn(classname);
+					create_btn(classname , null);
 					myDb.insert_CT_Row("personal", classname, 0);
 					dialog_addclasspg.dismiss();
 				}
