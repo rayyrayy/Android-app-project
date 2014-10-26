@@ -18,10 +18,12 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.app.Dialog;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.ContentValues;
+import android.content.Intent;
 import android.os.Message;
 import android.os.Handler;
 import android.content.Context;
@@ -45,6 +47,7 @@ public class MainActivity extends Activity implements OnClickListener {
     private Button btnAdd = null;
     private Button btnDel = null;
     private Button btnUpdate = null;
+    private Button btnInMoney = null;		//暫時挪作他使用的收入按鈕
 
 
     @Override
@@ -59,6 +62,14 @@ public class MainActivity extends Activity implements OnClickListener {
 //        showInList();
 
         
+    
+//-------------------------------------------------------------mauching
+        Button btnInMoney = (Button)findViewById(R.id.button3);			//收入按鈕
+        btnInMoney.setOnClickListener(inMoneyListener);
+        
+        
+        
+//-------------------------------------------------------------mauching
 //------------------------Original code------------------------
         Button btn = (Button) findViewById(R.id.one);
         btn.setEnabled(false);
@@ -75,12 +86,46 @@ public class MainActivity extends Activity implements OnClickListener {
     				
     		}
     	});          
-//------------------------Original code end------------------------        
+//------------------------Original code end------------------------   
+
     }
 
+    
+  //-------------------------Activity 生命週期------------------------------------mauching
+	@Override
+	protected void onStart() {		
+		super.onStart();
+		Toast.makeText(getApplicationContext(),"onStart(1)",Toast.LENGTH_SHORT).show();
+	} 
+	
+	@Override
+	protected void onResume() {		
+		super.onResume();
+		Toast.makeText(getApplicationContext(),"onResume(1)",Toast.LENGTH_SHORT).show();
+	}
+
+	@Override
+	protected void onRestart() {		
+		super.onRestart();
+		Toast.makeText(getApplicationContext(),"onRestart(1)",Toast.LENGTH_SHORT).show();
+	}
+
+	@Override
+	protected void onPause() {		
+		super.onPause();
+		Toast.makeText(getApplicationContext(),"onPause(1)",Toast.LENGTH_SHORT).show();
+	} 
+	
+	@Override
+	protected void onStop() {		
+		super.onStop();
+		Toast.makeText(getApplicationContext(),"onStop(1)",Toast.LENGTH_SHORT).show();
+	}
+	
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+	protected void onDestroy() {    	
+		super.onDestroy();
+		Toast.makeText(getApplicationContext(),"onDestroy(1)",Toast.LENGTH_SHORT).show();
         closeDatabase();
     }
 
@@ -91,6 +136,18 @@ public class MainActivity extends Activity implements OnClickListener {
     private void closeDatabase(){
         dbhelper.close();
     }
+ //-------------------------------------------------------------mauching
+ //-------------聽btnInMoeny按鈕事件，並呼叫新的Activity-------------------mauching   
+    private Button.OnClickListener inMoneyListener = new Button.OnClickListener(){
+    	public void onClick(View v){
+    		Intent intent = new Intent();
+    		intent.setClass(MainActivity.this, InMoney.class);
+    		startActivity(intent);
+    	
+    	}
+    };
+//---------------------------------------------------------------mauching    
+    
 /*
     private void initView(){
         result = (TextView) findViewById(R.id.txtResult);
@@ -335,7 +392,7 @@ public class MainActivity extends Activity implements OnClickListener {
         private void add(){
             SQLiteDatabase db = dbhelper.getWritableDatabase();
             ContentValues values = new ContentValues();
-            values.put(classes, addclassname.getText().toString());
+ //           values.put(classes, addclassname.getText().toString());
             db.insert(flashaccounting, null, values);
 
         }
