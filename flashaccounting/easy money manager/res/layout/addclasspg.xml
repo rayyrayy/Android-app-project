@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="18sp"
-        android:text="新增支出類別"
+        android:text="請輸入類別名稱"
         />
 
     <EditText

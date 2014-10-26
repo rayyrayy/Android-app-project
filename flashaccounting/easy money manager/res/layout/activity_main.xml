@@ -22,6 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
+        android:onClick="DelClass"
         android:text="刪除類別" />
 
     <Button
@@ -51,35 +52,8 @@
         android:columnCount="3"
         android:orientation="horizontal"
         android:rowCount="3" >
-
-        <Button
-            android:id="@+id/one"
-            android:height="90dp"
-            android:text="1"
-            android:width="90dp" />
-
-　　
-　　
-
-        <Button
-            android:id="@+id/two"
-            android:height="90dp"
-            android:text="2"
-            android:width="90dp" />
-
-　　　
-
-　　
-
-　　
-
-　　
-
-　　
-
-　　
-
-　　
+　　    
+        
     </GridLayout>
 
     <Button
@@ -87,7 +61,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/gridLayout1"
-        android:layout_toRightOf="@+id/AddClass"
+        android:layout_centerInParent="true"
+        android:onClick="querytable"
         android:text="查詢類別" />
 
 </RelativeLayout>

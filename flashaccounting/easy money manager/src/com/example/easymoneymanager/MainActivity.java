@@ -1,35 +1,38 @@
 package com.example.easymoneymanager;
 
-import static android.provider.BaseColumns._ID;
-import static com.example.easymoneymanager.DbConstants.flashaccounting;
-import static com.example.easymoneymanager.DbConstants.classes;
-import static com.example.easymoneymanager.DbConstants.date;
-import static com.example.easymoneymanager.DbConstants.group;
-import static com.example.easymoneymanager.DbConstants.list;
-import static com.example.easymoneymanager.DbConstants.location;
-import static com.example.easymoneymanager.DbConstants.expenditure;
-import static com.example.easymoneymanager.DbConstants.receipt;
 import android.app.Activity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridLayout;
 import android.widget.TextView;
+<<<<<<< HEAD
 import android.widget.Toast;
 import android.app.Dialog;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.ContentValues;
 import android.content.Intent;
+=======
+import android.app.AlertDialog.Builder;
+import android.app.Dialog;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnMultiChoiceClickListener;
+>>>>>>> c4852b2307bda187806f072cc32a3fe24bf47f88
 import android.os.Message;
 import android.os.Handler;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.widget.SimpleCursorAdapter;
+import android.widget.Toast;
 
 
 
@@ -37,6 +40,7 @@ import android.widget.SimpleCursorAdapter;
 // 資料庫待修改
 public class MainActivity extends Activity implements OnClickListener {
 
+<<<<<<< HEAD
     private DBHelper dbhelper = null;
 
     private TextView result = null;
@@ -49,19 +53,26 @@ public class MainActivity extends Activity implements OnClickListener {
     private Button btnUpdate = null;
     private Button btnInMoney = null;		//暫時挪作他使用的收入按鈕
 
+=======
+	
+	DBAdapter myDb;
+>>>>>>> c4852b2307bda187806f072cc32a3fe24bf47f88
 
+	public int btn_num =0 ;
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         initView();
-
-        openDatabase();
+        
+        openDB();
 //        show();
 //        showInList();
 
         
+<<<<<<< HEAD
     
 //-------------------------------------------------------------mauching
         Button btnInMoney = (Button)findViewById(R.id.button3);			//收入按鈕
@@ -70,9 +81,18 @@ public class MainActivity extends Activity implements OnClickListener {
         
         
 //-------------------------------------------------------------mauching
+=======
+      /*  
+        for (int i = 0 ; i < 9 ; i++){
+        	String name =myDb.get_CT_Row(i);
+        	if (name != null)create_btn(name) ;
+        }
+        */
+        
+        
+>>>>>>> c4852b2307bda187806f072cc32a3fe24bf47f88
 //------------------------Original code------------------------
-        Button btn = (Button) findViewById(R.id.one);
-        btn.setEnabled(false);
+
     		
     	AddClass = (Button)findViewById(R.id.AddClass);
     		
@@ -90,6 +110,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
     }
 
+<<<<<<< HEAD
     
   //-------------------------Activity 生命週期------------------------------------mauching
 	@Override
@@ -251,59 +272,55 @@ public class MainActivity extends Activity implements OnClickListener {
 
     private void update(){
         String id = editId.getText().toString();
+=======
+	private void openDB() {
+		myDb = new DBAdapter(this);
+		myDb.open();
+	}
+	private void closeDB() {
+		myDb.close();
+		
+	}
+	
+	
+	
+	//private String[] opts = new String[] { "123" , "456" };
+	
+	private void create_btn(String classname){
+		
+		GridLayout grid = (GridLayout) findViewById(R.id.gridLayout1) ;
+		
+		Button btn = new Button(this);
+		
+		btn.setLayoutParams(new LayoutParams(200, 200));
+		
+		btn.setId(btn_num);
+		
+		btn.setText(classname);
+		
+		grid.addView(btn);
+	}
+>>>>>>> c4852b2307bda187806f072cc32a3fe24bf47f88
 
-        ContentValues values = new ContentValues();
-        values.put(NAME, editName.getText().toString());
-        values.put(TEL, editTel.getText().toString());
-        values.put(EMAIL, editEmail.getText().toString());
-
-        SQLiteDatabase db = dbhelper.getWritableDatabase();
-        db.update(TABLE_NAME, values, _ID + "=" + id, null);
-
-        cleanEditText();
-    }
-
-    private void cleanEditText(){
-        editName.setText("");
-        editTel.setText("");
-        editEmail.setText("");
-        editId.setText("");
-    }
-    */
-    
     
 //------------------------Original code------------------------
     
-    private Button AddClass ;
-    private Handler handle;
-    private AlertDialog alert , alert2;
+    private Button AddClass , DelClass;
+//    private Handler handle;
+    private AlertDialog alert ;
     public  EditText classname ;
     private void initView(){
 
         AddClass = (Button) findViewById(R.id.AddClass);
 
         AddClass.setOnClickListener(this);
-       
+        
+        DelClass = (Button) findViewById(R.id.DelClass);
+        
+        DelClass.setOnClickListener(this);
+        
     }
    
-    
-/*    
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-        case R.id.AddClass:
-            add();
-            break;
-
-        default:
-            break;
-        }
-
-//        show();
-//       showInList();
-    }
-*/  
-    
     
     	private void AddClass(){
     		
@@ -313,7 +330,7 @@ public class MainActivity extends Activity implements OnClickListener {
     	    
     	    dialog_addclasspg.setTitle("新增支出類別");
     	    
-    	    EditText addclassname = (EditText)dialog_addclasspg.findViewById(R.id.addclassname);
+    	    final EditText addclassname = (EditText)dialog_addclasspg.findViewById(R.id.addclassname);
     	    
     	    Button Add_ok , Add_cancel ;
     	    Add_ok = (Button)dialog_addclasspg.findViewById(R.id.Add_ok);
@@ -324,9 +341,13 @@ public class MainActivity extends Activity implements OnClickListener {
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
-					
-					add();
-					
+					Editable str;
+					str = addclassname.getText();
+					String classname =str.toString();
+					Log.i("edit text" , classname);
+//					add();
+					create_btn(classname);
+					myDb.insert_CT_Row("personal", classname, 0);
 					dialog_addclasspg.dismiss();
 				}
 			});
@@ -343,50 +364,46 @@ public class MainActivity extends Activity implements OnClickListener {
 			});
     	    
     	   dialog_addclasspg.show() ;
-    	    /*
-    		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        //    AlertDialog.Builder builder2 = new AlertDialog.Builder(this);  
-            
-    		builder.setTitle("新增支出類別");
-    		builder.setMessage("請輸入支出類別名稱");
-    		builder.setIcon(R.drawable.ic_launcher);
+  
     		
-    	/*	builder2.setTitle("新增支出類別");
-    		builder2.setMessage(classname.getText().toString());
-    		builder2.setIcon(R.drawable.ic_launcher);  */
-    		/*
-    		classname = new EditText(MainActivity.this);
-    		builder.setView(classname);
     		
-    		builder.setPositiveButton("新增", new  DialogInterface.OnClickListener() {
-    			
-    			@Override
-    			public void onClick(DialogInterface dialog, int which) {
-    				// TODO Auto-generated method stub
-    	            add();
+    	}
 
-    	    		
-    	    	//	alert2.show();
-    	            
-    			}
-    		});
+    	public void querytable(View v){
+         
+    		//for (int i = 0 ; i < 1 ; i++){
+            	String name =myDb.get_CT_Row(1);
+            	if (name != null) ; Toast.makeText(this, name, Toast.LENGTH_LONG).show();
+         //   }
+    		//Toast.makeText(this, "text", Toast.LENGTH_LONG).show();
+    	}
+    	
+    	public void DelClass(){
     		
-    		builder.setNegativeButton("取消", new  DialogInterface.OnClickListener() {
+    		myDb.delete_CT_Row(0);
+    		myDb.delete_CT_Row(1);
+    		
+    	}
+    	
+    	/*
+    	private void DelClass(){
+    		
+    		
+    		AlertDialog alert = null ;
+    		
+    		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    		
+
+    		builder.setMultiChoiceItems(opts, new boolean[]{false , false}, new OnMultiChoiceClickListener()){
     			
-    			@Override
-    			public void onClick(DialogInterface dialog, int which) {
-    				// TODO Auto-generated method stub
-    				
-    			}
-    		});
+    		};
     		
     		alert = builder.create();
     		
     		alert.show();
-    		*/
-
     		
     		
+<<<<<<< HEAD
     	}
 
         private void add(){
@@ -396,6 +413,10 @@ public class MainActivity extends Activity implements OnClickListener {
             db.insert(flashaccounting, null, values);
 
         }
+=======
+    		
+    	}*/
+>>>>>>> c4852b2307bda187806f072cc32a3fe24bf47f88
     	
     	@Override
     	public boolean onCreateOptionsMenu(Menu menu) {
@@ -404,17 +425,7 @@ public class MainActivity extends Activity implements OnClickListener {
     		return true;
     	}
 
-    	@Override
-    	public boolean onOptionsItemSelected(MenuItem item) {
-    		// Handle action bar item clicks here. The action bar will
-    		// automatically handle clicks on the Home/Up button, so long
-    		// as you specify a parent activity in AndroidManifest.xml.
-    		int id = item.getItemId();
-    		if (id == R.id.action_settings) {
-    			return true;
-    		}
-    		return super.onOptionsItemSelected(item);
-    	}
+
 
 		@Override
 		public void onClick(View v) {
@@ -422,10 +433,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			
 		}
     
-    
-    
-//------------------------Original code end------------------------    
-    
+   
     
     
     
