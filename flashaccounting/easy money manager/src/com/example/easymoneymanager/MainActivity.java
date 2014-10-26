@@ -13,20 +13,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.TextView;
-
 import android.widget.Toast;
 import android.app.Dialog;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.ContentValues;
 import android.content.Intent;
-
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnMultiChoiceClickListener;
-
 import android.os.Message;
 import android.os.Handler;
 import android.content.Context;
@@ -40,10 +37,11 @@ import android.widget.Toast;
 // 資料庫待修改
 public class MainActivity extends Activity implements OnClickListener {
 
+
 	DBAdapter myDb;
 
-	public int btn_num =1 ;
-	
+
+	public int btn_num =0 ;	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,8 +54,6 @@ public class MainActivity extends Activity implements OnClickListener {
 //        showInList();
 
         
-
-  /*  
 //-------------------------------------------------------------mauching
         Button btnInMoney = (Button)findViewById(R.id.button3);			//收入按鈕
         btnInMoney.setOnClickListener(inMoneyListener);
@@ -65,16 +61,13 @@ public class MainActivity extends Activity implements OnClickListener {
         
         
 //-------------------------------------------------------------mauching
-*/
-      
-        for (int i = 1 ; i < 3 ; i++){
+        	
+        	for(int i = 1 ; i < 3 ; i++ ){
         	String name =myDb.get_CT_Row(i);
         	if (name != null)create_btn(name) ;
         }
         
         
-        
-
 //------------------------Original code------------------------
 
     		
@@ -94,10 +87,8 @@ public class MainActivity extends Activity implements OnClickListener {
 
     }
 
+/*
 
-/*    
-  //-------------------------Activity 生命週期------------------------------------mauching
-    
 	@Override
 	protected void onStart() {		
 		super.onStart();
@@ -180,6 +171,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		
 		btn_num = btn_num +1 ;
 	}
+
 
 
     
@@ -283,6 +275,7 @@ public class MainActivity extends Activity implements OnClickListener {
     		alert.show();
     		
     		
+
 
     	}  */
 
