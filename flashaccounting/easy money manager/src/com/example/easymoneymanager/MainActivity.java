@@ -42,7 +42,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	DBAdapter myDb;
 
 
-	public int btn_num =1 ;	
+	public int btn_num =2 ;	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,7 +65,7 @@ public class MainActivity extends Activity implements OnClickListener {
         	
 
         	Cursor name =myDb.getAll_CT_Rows();
-        	Log.i("button", "begin");
+//        	Log.i("button", "begin");
         	create_btn(null , name) ;
 
         
@@ -152,7 +152,12 @@ public class MainActivity extends Activity implements OnClickListener {
 		
 	}
 	
-	
+	private void delete_btn(){
+		
+		GridLayout grid = (GridLayout) findViewById(R.id.gridLayout1) ;
+		
+		grid.removeViewAt(0);
+	}
 	
 	//private String[] opts = new String[] { "123" , "456" };
 	
@@ -161,9 +166,9 @@ public class MainActivity extends Activity implements OnClickListener {
 		if (name != null){
 		if (name.moveToFirst()) {
 			do {
+//				Log.i("in the middle", "call by OnCreate");
+				
 				classname = name.getString(2);
-
-				Log.i("in the middle", "1");
 
 				GridLayout grid = (GridLayout) findViewById(R.id.gridLayout1) ;
 				
@@ -172,7 +177,7 @@ public class MainActivity extends Activity implements OnClickListener {
 				btn.setLayoutParams(new LayoutParams(200, 200));
 		
 				btn.setId(btn_num);
-		
+				Log.i("btn_num", Integer.toString(btn_num));
 				btn.setText(classname);
 		
 				grid.addView(btn);
@@ -180,24 +185,25 @@ public class MainActivity extends Activity implements OnClickListener {
 				btn_num = btn_num +1 ;
 		
 			} while(name.moveToNext());
+			name.close();
 		}}
-		else {
+		else if (name == null && classname != null) {
 		GridLayout grid = (GridLayout) findViewById(R.id.gridLayout1) ;
-		
+		//Log.i("in the middle", "call by AddClass");
 		Button btn = new Button(this);
-
+		//Log.i("in the middle", "setLayoutParams");
 		btn.setLayoutParams(new LayoutParams(200, 200));
-
+		//Log.i("in the middle", "set btn ID num");
 		btn.setId(btn_num);
-
+		//Log.i("in the middle", "setText");
 		btn.setText(classname);
-
+		//Log.i("in the middle", "addView");
 		grid.addView(btn);
-
+		//Log.i("in the middle", "finish");
 		btn_num = btn_num +1 ;
 		}
 		// Close the cursor to avoid a resource leak.
-		name.close();
+
 	}
 
 
@@ -205,7 +211,7 @@ public class MainActivity extends Activity implements OnClickListener {
     
 //------------------------Original code------------------------
     
-    private Button AddClass , DelClass;
+    private Button AddClass ;
 //    private Handler handle;
     private AlertDialog alert ;
     public  EditText classname ;
@@ -214,10 +220,6 @@ public class MainActivity extends Activity implements OnClickListener {
         AddClass = (Button) findViewById(R.id.AddClass);
 
         AddClass.setOnClickListener(this);
-        
-        DelClass = (Button) findViewById(R.id.DelClass);
-        
-        DelClass.setOnClickListener(this);
         
     }
    
@@ -244,9 +246,10 @@ public class MainActivity extends Activity implements OnClickListener {
 					Editable str;
 					str = addclassname.getText();
 					String classname =str.toString();
-					Log.i("edit text" , classname);
+					Log.i("button name" , classname);
 //					add();
 					create_btn(classname , null);
+					Log.i("insert database" , classname);
 					myDb.insert_CT_Row("personal", classname, 0);
 					dialog_addclasspg.dismiss();
 				}
@@ -277,15 +280,19 @@ public class MainActivity extends Activity implements OnClickListener {
             }
     	}
     	
-    	/*
-    	public void DelClass(){
+    	
+    	public void DelClass(View v){
     		
-    		myDb.delete_CT_Row(0);
-    		myDb.delete_CT_Row(1);
+    		//myDb.delete_CT_Row(0);
+//    	    Log.i("delete database","start");
+    		//myDb.delete_CT_Row(1);
+//    		Log.i("delete database","seccess");
+    		delete_btn();
+    		
     		
     	}
     	
-    	
+    	/*
     	private void DelClass(){
     		
     		
