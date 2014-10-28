@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Menu;
@@ -318,11 +319,40 @@ public class MainActivity extends Activity implements OnClickListener {
     	
     	@Override
     	public boolean onCreateOptionsMenu(Menu menu) {
-    		// Inflate the menu; this adds items to the action bar if it is present.
-    		getMenuInflater().inflate(R.menu.main, menu);
-    		return true;
+      	  // Inflate the menu; this adds items to the action bar if it is present.
+      	  //menu.add 參數定義:
+      	   //menu.add (group ID , item_ID, 排列順序, item秀在畫面的名稱); 
+      	  menu.add(0, 1, 4, "menu_item1");
+      	  menu.add(0, 2, 3, "menu_item2");
+      	  menu.add(1, 3, 2, "menu_item3");
+      	  menu.add(1, 4, 1, "exit");
+      	  super.onCreateOptionsMenu(menu);
+      	  return true;
     	}
 
+    	 public boolean onOptionsItemSelected(MenuItem item){
+    	  super.onOptionsItemSelected(item);
+    	  switch(item.getItemId())
+    	  {
+    	  case 1:
+    	   //這種寫法可以在指定位置秀出message   
+    	   Toast toast1=Toast.makeText(this, "這是第一個item", Toast.LENGTH_LONG);
+    	   toast1.setGravity(Gravity.CENTER_HORIZONTAL, 50, 50);
+    	   toast1.show();
+    	   break;
+    	  case 2:
+    	   Toast toast2=Toast.makeText(this, "這是第二個item", Toast.LENGTH_SHORT);
+    	   toast2.show();
+    	   break;
+    	  case 3:
+    	   Toast.makeText(this, "這是第三個item", Toast.LENGTH_SHORT).show();
+    	   break;
+    	  case 4:
+    	   finish();
+    	   break;
+    	  }
+    	  return true;
+    	 }
 
 
 		@Override
