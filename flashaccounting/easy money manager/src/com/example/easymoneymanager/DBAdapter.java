@@ -184,18 +184,17 @@ public class DBAdapter {
 	}
 	
 	
-	/* Not use yet
-	public void deleteAll() {
-		Cursor c = getAllRows();
+	public void deleteAll_CT() {
+		Cursor c = getAll_CT_Rows();
 		long rowId = c.getColumnIndexOrThrow(CT_ROWID);
 		if (c.moveToFirst()) {
 			do {
-				deleteRow(c.getLong((int) rowId));				
+				delete_CT_Row(c.getLong((int) rowId));				
 			} while (c.moveToNext());
 		}
 		c.close();
 	}
-	*/
+
 	// Return all data in the database.
 	public Cursor getAll_CT_Rows() {
 		String where = null;

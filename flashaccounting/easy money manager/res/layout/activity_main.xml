@@ -15,49 +15,49 @@
 
    <LinearLayout 
     android:layout_width="fill_parent"
-   	android:layout_height="fill_parent" 
-   	android:layout_weight="3"
+   	android:layout_height="wrap_content" 
+   	android:layout_weight="1"
    	android:orientation="horizontal">
    	
    	    <LinearLayout 
-    	android:layout_width="match_parent"
+    	android:layout_width="fill_parent"
    		android:layout_height="fill_parent" 
    		android:layout_weight="1"
    		android:orientation="horizontal">
    		
     		<Button
         	android:id="@+id/AddClass"
-        	android:layout_width="wrap_content"
-        	android:layout_height="wrap_content"
+        	android:layout_width="fill_parent"
+        	android:layout_height="fill_parent"
         	android:text="新增類別" />
     		
 		</LinearLayout>
 		
    		<LinearLayout 
-       	android:layout_width="match_parent"
+       	android:layout_width="fill_parent"
    		android:layout_height="fill_parent" 
    		android:layout_weight="1"
    		android:orientation="horizontal"> 
    		   
    		    <Button
         	android:id="@+id/button1"
-        	android:layout_width="wrap_content"
-        	android:layout_height="wrap_content"
+        	android:layout_width="fill_parent"
+        	android:layout_height="fill_parent"
         	android:onClick="querytable"
         	android:text="查詢類別" />	
         	
     	</LinearLayout>
    		    
    		<LinearLayout 
-       	android:layout_width="match_parent"
+       	android:layout_width="fill_parent"
    		android:layout_height="fill_parent" 
    		android:layout_weight="1"
    		android:orientation="horizontal">
    		    
     		<Button
         	android:id="@+id/DelClass"
-        	android:layout_width="wrap_content"
-        	android:layout_height="wrap_content"
+        	android:layout_width="fill_parent"
+        	android:layout_height="fill_parent"
         	android:onClick="DelClass"
         	android:text="刪除類別" />
     		
@@ -67,14 +67,14 @@
 	
    	<LinearLayout 
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" 
-   	android:layout_weight="1"
+    android:layout_height="wrap_content" 
+   	android:layout_weight="12"
    	android:orientation="horizontal">
     
 	    <GridLayout
   	      android:id="@+id/gridLayout1"
-	      android:layout_width="wrap_content"
- 	      android:layout_height="wrap_content"
+	      android:layout_width="fill_parent"
+ 	      android:layout_height="fill_parent"
  	      android:columnCount="3"
   	      android:orientation="horizontal"
   	      android:rowCount="3" >
@@ -85,22 +85,37 @@
    		
    	<LinearLayout 
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" 
-   	android:layout_weight="2"
+    android:layout_height="wrap_content" 
+   	android:layout_weight="5"
    	android:orientation="horizontal">		 
+   	
+   	    <LinearLayout 
+       	android:layout_width="fill_parent"
+   		android:layout_height="fill_parent" 
+   		android:layout_weight="1"
+   		android:orientation="horizontal"> 
    		   
-  		<Button
-        android:id="@+id/button3"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
-        android:text="新增收入" />
+  			<Button
+        	android:id="@+id/button3"
+        	android:layout_width="fill_parent"
+        	android:layout_height="fill_parent"
+        	android:text="新增收入" />
+  			
+  		</LinearLayout>
 
-  		<Button
-        android:id="@+id/button4"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
-        android:text="總結" />
+   	    <LinearLayout 
+       	android:layout_width="fill_parent"
+   		android:layout_height="fill_parent" 
+   		android:layout_weight="1"
+   		android:orientation="horizontal"> 
+  		
+  			<Button
+        	android:id="@+id/button4"
+        	android:layout_width="fill_parent"
+        	android:layout_height="fill_parent"
+        	android:text="總結" />
     	
+  		</LinearLayout>	
     </LinearLayout>
     
    	</LinearLayout>
