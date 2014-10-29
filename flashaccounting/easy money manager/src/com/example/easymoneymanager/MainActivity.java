@@ -14,6 +14,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.app.Dialog;
@@ -43,7 +44,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	DBAdapter myDb;
 
 
-	public int btn_num =2 ;	
+	public int btn_num = 1 ;	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -160,7 +161,6 @@ public class MainActivity extends Activity implements OnClickListener {
 		grid.removeViewAt(0);
 	}
 	
-	//private String[] opts = new String[] { "123" , "456" };
 	
 	private void create_btn(String classname , Cursor name){
 		
@@ -168,15 +168,15 @@ public class MainActivity extends Activity implements OnClickListener {
 		if (name.moveToFirst()) {
 			do {
 //				Log.i("in the middle", "call by OnCreate");
-				
+
 				classname = name.getString(2);
 
 				GridLayout grid = (GridLayout) findViewById(R.id.gridLayout1) ;
 				
 				Button btn = new Button(this);
 		
-				btn.setLayoutParams(new LayoutParams(200, 200));
-		
+				btn.setLayoutParams(new LayoutParams(RelativeLayout.LayoutParams.FILL_PARENT, RelativeLayout.LayoutParams.FILL_PARENT));
+				
 				btn.setId(btn_num);
 				Log.i("btn_num", Integer.toString(btn_num));
 				btn.setText(classname);
@@ -188,7 +188,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			} while(name.moveToNext());
 			name.close();
 		}}
-		else if (name == null && classname != null) {
+		else if (classname != null) {
 		GridLayout grid = (GridLayout) findViewById(R.id.gridLayout1) ;
 		//Log.i("in the middle", "call by AddClass");
 		Button btn = new Button(this);
