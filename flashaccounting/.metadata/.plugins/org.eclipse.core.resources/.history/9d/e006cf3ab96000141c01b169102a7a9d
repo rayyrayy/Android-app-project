@@ -175,9 +175,9 @@ public class MainActivity extends Activity implements OnClickListener {
 				
 				Button btn = new Button(this);
 		
-				
+				btn.setGravity(0x01);
 				//btn.setLayoutParams(new LayoutParams(RelativeLayout.LayoutParams.FILL_PARENT, RelativeLayout.LayoutParams.FILL_PARENT));
-				
+			//	btn.layout.setForegroundGravity();
 				btn.setId(btn_num);
 				Log.i("btn_num", Integer.toString(btn_num));
 				btn.setText(classname);
@@ -194,7 +194,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		//Log.i("in the middle", "call by AddClass");
 		Button btn = new Button(this);
 		//Log.i("in the middle", "setLayoutParams");
-		//btn.setLayoutParams(new LayoutParams(200, 200));
+		btn.setLayoutParams(new LayoutParams(200, 200));
 		//Log.i("in the middle", "set btn ID num");
 		btn.setId(btn_num);
 		//Log.i("in the middle", "setText");

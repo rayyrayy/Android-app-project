@@ -175,7 +175,7 @@ public class MainActivity extends Activity implements OnClickListener {
 				
 				Button btn = new Button(this);
 		
-				
+				btn.setGravity(70);
 				//btn.setLayoutParams(new LayoutParams(RelativeLayout.LayoutParams.FILL_PARENT, RelativeLayout.LayoutParams.FILL_PARENT));
 				
 				btn.setId(btn_num);

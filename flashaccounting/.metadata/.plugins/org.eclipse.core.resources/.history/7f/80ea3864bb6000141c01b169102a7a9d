@@ -78,8 +78,7 @@
  	      android:columnCount="3"
   	      android:orientation="horizontal"
   	      android:stretchMode="spacingWidthUniform"
-  	      android:rowCount="3" 
-  	      android:layout_gravity="fill">
+  	      android:rowCount="3" >
  	   </GridLayout>
  	   
     </LinearLayout>
