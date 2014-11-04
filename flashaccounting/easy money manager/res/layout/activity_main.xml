@@ -72,27 +72,14 @@
    	android:orientation="horizontal">
     
 	    <GridLayout
-  	      android:id="@+id/gridLayout1"
-	      android:layout_width="fill_parent"
- 	      android:layout_height="fill_parent"
- 	      android:columnCount="3"
-  	      android:orientation="horizontal"
-  	      android:rowCount="3" 
-  	      android:layout_gravity="fill">
+	        android:id="@+id/gridLayout1"
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent"
+	        android:layout_gravity="fill"
+	        android:columnCount="3"
+	        android:orientation="horizontal"
+	        android:rowCount="3" >
     		
-	        <Button
-        	android:id="@+id/test"
-        	android:layout_width="wrap_content"
-        	android:layout_height="wrap_content"
-        	android:layout_gravity="fill_horizontal"
-        	android:text="test" />
-	        
-	        <Button
-        	android:id="@+id/test2"
-        	android:layout_width="wrap_content"
-        	android:layout_height="wrap_content"
-        	android:layout_gravity="fill_horizontal"
-        	android:text="test2" />
  	   </GridLayout>
  	   
     </LinearLayout>

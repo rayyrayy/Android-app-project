@@ -1,37 +1,23 @@
 package com.example.easymoneymanager;
 
-import com.example.easymoneymanager.DBAdapter;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.text.Editable;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-import android.app.Dialog;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.ContentValues;
-import android.content.Intent;
-import android.app.AlertDialog.Builder;
-import android.app.Dialog;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnMultiChoiceClickListener;
-import android.os.Message;
-import android.os.Handler;
-import android.content.Context;
-import android.database.Cursor;
-import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
 
@@ -173,11 +159,24 @@ public class MainActivity extends Activity implements OnClickListener {
 
 				GridLayout grid = (GridLayout) findViewById(R.id.gridLayout1) ;
 				
+				GridLayout.LayoutParams btnparam = new GridLayout.LayoutParams();
+				
+				
+				int btnWidth = grid.getMeasuredWidthAndState();
+				int btnHeight = grid.getHeight() ;
+				btnparam.setGravity(0x77);				
+				Log.i("btnwidth", Integer.toString(btnWidth));
+				Log.i("btnHeight", Integer.toString(btnHeight));
+				btnparam.height=30 ;
+				
+				btnparam.width=40;
+
 				Button btn = new Button(this);
 		
-
-				//btn.setLayoutParams(new LayoutParams(RelativeLayout.LayoutParams.FILL_PARENT, RelativeLayout.LayoutParams.FILL_PARENT));
 				
+				//btn.setLayoutParams(btnparam);
+				//btn.setLayoutParams(btnparam );
+				btn.setGravity(Gravity.FILL_HORIZONTAL | Gravity.FILL_VERTICAL);
 				btn.setId(btn_num);
 				Log.i("btn_num", Integer.toString(btn_num));
 				btn.setText(classname);
@@ -192,7 +191,14 @@ public class MainActivity extends Activity implements OnClickListener {
 		else if (classname != null) {
 		GridLayout grid = (GridLayout) findViewById(R.id.gridLayout1) ;
 		//Log.i("in the middle", "call by AddClass");
+		GridLayout.LayoutParams btnparam = new GridLayout.LayoutParams();
+		
+		btnparam.setGravity(0x77);
+		
+		
 		Button btn = new Button(this);
+
+		btn.setLayoutParams(btnparam);
 		//Log.i("in the middle", "setLayoutParams");
 		//btn.setLayoutParams(new LayoutParams(200, 200));
 		//Log.i("in the middle", "set btn ID num");
