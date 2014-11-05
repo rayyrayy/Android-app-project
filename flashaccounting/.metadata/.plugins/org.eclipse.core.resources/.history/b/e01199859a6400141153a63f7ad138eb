@@ -1,0 +1,12 @@
+刪除類別<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">flashaccounting</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="inmoeny_title">金額：</string>
+    <string name="queryclass">查詢類別</string>
+    <string name="addclass">新增類別</string>
+    <string name="delclass">刪除類別</string>
+
+</resources>

@@ -17,6 +17,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridLayout;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -159,29 +160,18 @@ public class MainActivity extends Activity implements OnClickListener {
 
 				GridLayout grid = (GridLayout) findViewById(R.id.gridLayout1) ;
 				
-				GridLayout.LayoutParams btnparam = new GridLayout.LayoutParams();
+				LinearLayout.LayoutParams lin = new LinearLayout.LayoutParams(this, null);
+				LinearLayout li = new LinearLayout(this);
+				lin.weight = 1;
+				li.setLayoutParams(lin);
 				
-				
-				int btnWidth = grid.getMeasuredWidthAndState();
-				int btnHeight = grid.getHeight() ;
-				btnparam.setGravity(0x77);				
-				Log.i("btnwidth", Integer.toString(btnWidth));
-				Log.i("btnHeight", Integer.toString(btnHeight));
-				btnparam.height=30 ;
-				
-				btnparam.width=40;
-
 				Button btn = new Button(this);
-		
-				
-				//btn.setLayoutParams(btnparam);
-				//btn.setLayoutParams(btnparam );
-				btn.setGravity(Gravity.FILL_HORIZONTAL | Gravity.FILL_VERTICAL);
+				btn.setGravity(0x77);
 				btn.setId(btn_num);
 				Log.i("btn_num", Integer.toString(btn_num));
 				btn.setText(classname);
-		
-				grid.addView(btn);
+				li.addView(btn);
+				grid.addView(li);
 		
 				btn_num = btn_num +1 ;
 		
@@ -191,14 +181,11 @@ public class MainActivity extends Activity implements OnClickListener {
 		else if (classname != null) {
 		GridLayout grid = (GridLayout) findViewById(R.id.gridLayout1) ;
 		//Log.i("in the middle", "call by AddClass");
-		GridLayout.LayoutParams btnparam = new GridLayout.LayoutParams();
-		
-		btnparam.setGravity(0x77);
-		
+
 		
 		Button btn = new Button(this);
 
-		btn.setLayoutParams(btnparam);
+		//btn.setLayoutParams(btnparam);
 		//Log.i("in the middle", "setLayoutParams");
 		//btn.setLayoutParams(new LayoutParams(200, 200));
 		//Log.i("in the middle", "set btn ID num");
