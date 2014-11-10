@@ -10,6 +10,7 @@ import android.text.Editable;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -24,24 +25,20 @@ import android.widget.Toast;
 
 
 
-// 資料庫待修改
 public class MainActivity extends Activity implements OnClickListener {
 
-
+	//呼叫DB
 	DBAdapter myDb;
 
-
+	//類別按鈕計數
 	public int btn_num = 1 ;	
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        initView();
         
         openDB();
-//        show();
-//        showInList();
 
         
 //-------------------------------------------------------------mauching
@@ -51,29 +48,11 @@ public class MainActivity extends Activity implements OnClickListener {
         
         
 //-------------------------------------------------------------mauching
-        	
 
         	Cursor name =myDb.getAll_CT_Rows();
 //        	Log.i("button", "begin");
         	create_btn(null , name) ;
 
-        
-//------------------------Original code------------------------
-
-    		
-    	AddClass = (Button)findViewById(R.id.AddClass);
-    		
-    	AddClass.setOnClickListener(new OnClickListener() {
-    			
-    	@Override
-    	public void onClick(View v) {
-    				
-    			AddClass();
-    			// TODO Auto-generated method stub
-    				
-    		}
-    	});          
-//------------------------Original code end------------------------   
 
     }
 
@@ -163,6 +142,7 @@ public class MainActivity extends Activity implements OnClickListener {
 				
 				Button btn = new Button(this);
 				btn.setGravity(0x77);
+				btn.setLayoutParams(new LayoutParams(230, 230));
 				btn.setId(btn_num);
 				Log.i("btn_num", Integer.toString(btn_num));
 				btn.setText(classname);
@@ -181,9 +161,10 @@ public class MainActivity extends Activity implements OnClickListener {
 		
 		Button btn = new Button(this);
 
+		btn.setGravity(0x77);
 		//btn.setLayoutParams(btnparam);
 		//Log.i("in the middle", "setLayoutParams");
-		//btn.setLayoutParams(new LayoutParams(200, 200));
+		btn.setLayoutParams(new LayoutParams(230, 230));
 		//Log.i("in the middle", "set btn ID num");
 		btn.setId(btn_num);
 		//Log.i("in the middle", "setText");
@@ -202,17 +183,11 @@ public class MainActivity extends Activity implements OnClickListener {
     
 //------------------------Original code------------------------
     
-    private Button AddClass ;
+
 //    private Handler handle;
     private AlertDialog alert ;
     public  EditText classname ;
-    private void initView(){
 
-        AddClass = (Button) findViewById(R.id.AddClass);
-
-        AddClass.setOnClickListener(this);
-        
-    }
    
     
     	private void AddClass(){
@@ -299,16 +274,21 @@ public class MainActivity extends Activity implements OnClickListener {
       	   //menu.add (group ID , item_ID, 排列順序, item秀在畫面的名稱); 
       	  menu.add(0, 1, 4, "清空所有資料");
       	  menu.add(0, 2, 3, "menu_item2");
-      	  menu.add(1, 3, 2, "menu_item3");
-      	  menu.add(1, 4, 1, "exit");
-      	  super.onCreateOptionsMenu(menu);
-      	  return true;
+      	  menu.add(0, 3, 2, "menu_item3");
+      	  menu.add(0, 4, 1, "exit");
+      	  //super.onCreateOptionsMenu(menu);
+          MenuInflater inflater = getMenuInflater();
+          inflater.inflate(R.menu.main, menu);
+          return true;
     	}
 
     	 public boolean onOptionsItemSelected(MenuItem item){
     	  super.onOptionsItemSelected(item);
     	  switch(item.getItemId())
     	  {
+    	  case R.id.AddClass:
+    	   AddClass();
+    	   break;
     	  case 1:
     	   //這種寫法可以在指定位置秀出message   
     	   Toast toast1=Toast.makeText(this, "這是第一個item", Toast.LENGTH_LONG);
