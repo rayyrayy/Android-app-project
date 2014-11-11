@@ -1,5 +1,9 @@
 package com.example.easymoneymanager;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Vector;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -31,7 +35,8 @@ public class MainActivity extends Activity implements OnClickListener {
 	DBAdapter myDb;
 
 	//類別按鈕計數
-	public int btn_num = 1 ;	
+	public int btn_num = 0 ;	
+	//Button[] btn = new Button[9];
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -120,62 +125,75 @@ public class MainActivity extends Activity implements OnClickListener {
 		
 	}
 	
-	private void delete_btn(){
+	private void delete_btn(int sum){
 		
-		GridLayout grid = (GridLayout) findViewById(R.id.gridLayout1) ;
-		
-		grid.removeViewAt(0);
+		if (sum == btn_num){
+			for (int i=0 ; i<sum ; i++){
+			
+			GridLayout grid = (GridLayout) findViewById(R.id.gridLayout1) ;
+			
+			grid.removeViewAt(0);
+			}
+		}
+		else ;
 	}
 	
 	
 	private void create_btn(String classname , Cursor name){
 		
 		if (name != null){
-		if (name.moveToFirst()) {
-			do {
-//				Log.i("in the middle", "call by OnCreate");
-
-				classname = name.getString(2);
-
-				GridLayout grid = (GridLayout) findViewById(R.id.gridLayout1) ;
+			if (name.moveToFirst()) {
+				do {
+					classname = name.getString(2);
+	
+					GridLayout grid = (GridLayout) findViewById(R.id.gridLayout1) ;			
+					
+					Button btn = new Button(this);
+					btn.setGravity(0x77);
+					btn.setLayoutParams(new LayoutParams(230, 230));
+					btn.setId(btn_num);
+					Log.i("btn_num", Integer.toString(btn_num));
+					btn.setText(classname);
 			
-				
-				Button btn = new Button(this);
-				btn.setGravity(0x77);
-				btn.setLayoutParams(new LayoutParams(230, 230));
-				btn.setId(btn_num);
-				Log.i("btn_num", Integer.toString(btn_num));
-				btn.setText(classname);
-
-				grid.addView(btn);
-		
-				btn_num = btn_num +1 ;
-		
-			} while(name.moveToNext());
-			name.close();
-		}}
+					final String buttonevent = classname;
+				    btn.setOnClickListener(new View.OnClickListener() {
+				        public void onClick(View v) {
+				            //your desired functionality
+				        	Log.i("button event", buttonevent);
+				        }});
+				    
+				    grid.addView(btn);
+				    
+					btn_num = btn_num +1 ;
+			
+				} while(name.moveToNext());
+				name.close();
+			}
+		}
 		else if (classname != null) {
 		GridLayout grid = (GridLayout) findViewById(R.id.gridLayout1) ;
-		//Log.i("in the middle", "call by AddClass");
 
-		
 		Button btn = new Button(this);
 
 		btn.setGravity(0x77);
-		//btn.setLayoutParams(btnparam);
-		//Log.i("in the middle", "setLayoutParams");
+
 		btn.setLayoutParams(new LayoutParams(230, 230));
-		//Log.i("in the middle", "set btn ID num");
+
 		btn.setId(btn_num);
-		//Log.i("in the middle", "setText");
+
 		btn.setText(classname);
-		//Log.i("in the middle", "addView");
+
+		final String buttonevent = classname;
+	    btn.setOnClickListener(new View.OnClickListener() {
+	        public void onClick(View v) {
+	            //your desired functionality
+	        	Log.i("button event", buttonevent);
+	        }});
+	    
 		grid.addView(btn);
-		//Log.i("in the middle", "finish");
 		btn_num = btn_num +1 ;
 		}
-		// Close the cursor to avoid a resource leak.
-
+		name.close();
 	}
 
 
@@ -184,12 +202,8 @@ public class MainActivity extends Activity implements OnClickListener {
 //------------------------Original code------------------------
     
 
-//    private Handler handle;
-    private AlertDialog alert ;
     public  EditText classname ;
-
    
-    
     	private void AddClass(){
     		
     	    final Dialog dialog_addclasspg = new Dialog(this, R.style.dialogStyle);
@@ -233,35 +247,36 @@ public class MainActivity extends Activity implements OnClickListener {
 			});
     	    
     	   dialog_addclasspg.show() ;
-  
-    		
-    		
+  		
     	}
 
-    	public void querytable(View v){
-         
-    		for (int i = 1 ; i < 3 ; i++){
-            	String name =myDb.get_CT_Row(i);
-            	if (name != null) ; Toast.makeText(this, name, Toast.LENGTH_LONG).show();
-            }
+    	
+    	private void DelClass(){
+    		
+    	    final Dialog dialog_delclasspg = new Dialog(this, R.style.dialogStyle);
+    	    
+    	    dialog_delclasspg.setContentView(R.layout.delclasspg);
+    	    
+    	    dialog_delclasspg.setTitle("刪除類別");
+    	    
+    	    dialog_delclasspg.show() ;
     	}
-    	
-    	
+ 	
     	public void DelClass(View v){
     		
     		//myDb.delete_CT_Row(0);
 //    	    Log.i("delete database","start");
     		//myDb.delete_CT_Row(1);
 //    		Log.i("delete database","seccess");
-    		delete_btn();
-    		
-    		
+    		//delete_btn();
+    			
     	}
     	
     	
     	private void DelAll(){   		
     		
     		myDb.deleteAll_CT();
+    		delete_btn(btn_num);
 
     	}  
 
@@ -272,9 +287,9 @@ public class MainActivity extends Activity implements OnClickListener {
       	  // Inflate the menu; this adds items to the action bar if it is present.
       	  //menu.add 參數定義:
       	   //menu.add (group ID , item_ID, 排列順序, item秀在畫面的名稱); 
-      	  menu.add(0, 1, 4, "清空所有資料");
-      	  menu.add(0, 2, 3, "menu_item2");
-      	  menu.add(0, 3, 2, "menu_item3");
+      	  menu.add(0, 1, 4, "清空所有類別");
+      	  menu.add(0, 2, 3, "顯示時間");
+      	  menu.add(0, 3, 2, "刪除類別");
       	  menu.add(0, 4, 1, "exit");
       	  //super.onCreateOptionsMenu(menu);
           MenuInflater inflater = getMenuInflater();
@@ -291,17 +306,19 @@ public class MainActivity extends Activity implements OnClickListener {
     	   break;
     	  case 1:
     	   //這種寫法可以在指定位置秀出message   
-    	   Toast toast1=Toast.makeText(this, "這是第一個item", Toast.LENGTH_LONG);
+    	   Toast toast1=Toast.makeText(this, "資料庫已清空", Toast.LENGTH_LONG);
     	   toast1.setGravity(Gravity.CENTER_HORIZONTAL, 50, 50);
     	   toast1.show();
     	   DelAll();
     	   break;
     	  case 2:
-    	   Toast toast2=Toast.makeText(this, "這是第二個item", Toast.LENGTH_SHORT);
+    		  SimpleDateFormat s = new SimpleDateFormat("dd/MM-yyyy-hh-mm-ss");
+    		  String format = s.format(new Date());
+    	   Toast toast2=Toast.makeText(this, format, Toast.LENGTH_SHORT);
     	   toast2.show();
     	   break;
     	  case 3:
-    	   Toast.makeText(this, "這是第三個item", Toast.LENGTH_SHORT).show();
+    	   DelClass();
     	   break;
     	  case 4:
     	   finish();
