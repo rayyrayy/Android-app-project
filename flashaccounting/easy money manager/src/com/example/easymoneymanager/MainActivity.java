@@ -7,22 +7,27 @@ import java.util.Vector;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.text.Editable;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -30,7 +35,8 @@ import android.widget.Toast;
 
 
 public class MainActivity extends Activity implements OnClickListener {
-
+	
+	ListView list;
 	//©I¥sDB
 	DBAdapter myDb;
 
@@ -252,6 +258,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
     	
     	private void DelClass(){
+    		list = (ListView) findViewById(R.id.listView1);
     		
     	    final Dialog dialog_delclasspg = new Dialog(this, R.style.dialogStyle);
     	    
@@ -262,6 +269,22 @@ public class MainActivity extends Activity implements OnClickListener {
     	    dialog_delclasspg.show() ;
     	}
  	
+    	class VivzAdater extends ArrayAdapter<String>
+    	{
+    		Context context;
+    		 VivzAdater(Context c , String[] classname) 
+    		{
+    			 super (c,R.layout.singelrow,R.id.editText1,classname);
+    			 this.context =c ;
+			}
+    		 @Override
+    		 public View getView(int position , View convertView , ViewGroup parent){
+    			 LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    			 View row =inflater.inflate(R.layout.singelrow, parent , false);
+    			 return super.getView(position, convertView, parent);
+    		 }
+    	}
+    	
     	public void DelClass(View v){
     		
     		//myDb.delete_CT_Row(0);
