@@ -1,9 +1,14 @@
 package com.example.easymoneymanager;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Vector;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -177,6 +182,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			}
 		}
 		else if (classname != null) {
+			
 		GridLayout grid = (GridLayout) findViewById(R.id.gridLayout1) ;
 
 		Button btn = new Button(this);
@@ -190,16 +196,18 @@ public class MainActivity extends Activity implements OnClickListener {
 		btn.setText(classname);
 
 		final String buttonevent = classname;
+
 	    btn.setOnClickListener(new View.OnClickListener() {
 	        public void onClick(View v) {
 	            //your desired functionality
 	        	Log.i("button event", buttonevent);
 	        }});
-	    
+
 		grid.addView(btn);
+
 		btn_num = btn_num +1 ;
+
 		}
-		name.close();
 	}
 
 
@@ -257,31 +265,70 @@ public class MainActivity extends Activity implements OnClickListener {
     	}
 
     	
-    	private void DelClass(){
-    		list = (ListView) findViewById(R.id.listView1);
+    	private void DelClass() {
+
+    		Cursor name =myDb.getAll_CT_Rows();
     		
+    		String[] mylist = {""} ;
+    		String stemp = "" ;
+    		if (name.moveToFirst()) {
+				do {
+					int i =0;
+					Log.i("name", name.getString(2));
+					mylist[i] = name.getString(2);
+					Log.i("mylist", mylist[i]);
+					i=i+1;
+
+				} while(name.moveToNext());
+				name.close();
+			}
+			Log.i("stemp", stemp);
+    		list = (ListView) findViewById(R.id.listView1);
+
+    		String[] classname = mylist;
+    		Log.i("test", "stuck3");
     	    final Dialog dialog_delclasspg = new Dialog(this, R.style.dialogStyle);
     	    
     	    dialog_delclasspg.setContentView(R.layout.delclasspg);
     	    
     	    dialog_delclasspg.setTitle("刪除類別");
-    	    
+    		Log.i("test", "stuck4");
+    	    VivzAdapter  adapter = new VivzAdapter(this, classname);
+    	    Log.i("test", "stuck4.1");
+    	  
     	    dialog_delclasspg.show() ;
+    	    
+    	      list.setAdapter(adapter);	
+    		Log.i("test", "stuck5");
     	}
  	
-    	class VivzAdater extends ArrayAdapter<String>
+    	class VivzAdapter extends ArrayAdapter<String>
     	{
     		Context context;
-    		 VivzAdater(Context c , String[] classname) 
+    		String[] classnamearray;
+    		 VivzAdapter(Context c , String[] classname) 
     		{
-    			 super (c,R.layout.singelrow,R.id.editText1,classname);
+    			 super (c,R.layout.singelrow,R.id.TextView,classname);
+
     			 this.context =c ;
+
+    			 this.classnamearray = classname;
+
 			}
-    		 @Override
+
+			@SuppressLint("ViewHolder")
+			@Override
     		 public View getView(int position , View convertView , ViewGroup parent){
+    			 Log.i("test", "stuck7.1");
     			 LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     			 View row =inflater.inflate(R.layout.singelrow, parent , false);
-    			 return super.getView(position, convertView, parent);
+    			 
+    			 EditText delclassname = (EditText) row.findViewById(R.id.TextView);
+    			 //Button del_btn = (Button) row.findViewById(R.id.del_btn);
+    			 
+    			 delclassname.setText(classnamearray[position]);
+    			 //del_btn.setText("刪除");
+    			 return row;
     		 }
     	}
     	
