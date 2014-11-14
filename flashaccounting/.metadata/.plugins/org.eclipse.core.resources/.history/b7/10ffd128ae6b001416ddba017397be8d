@@ -6,7 +6,9 @@ import java.util.Date;
 import java.util.Vector;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -263,26 +265,24 @@ public class MainActivity extends Activity implements OnClickListener {
     	}
 
     	
-    	private void DelClass(){
+    	private void DelClass() {
 
     		Cursor name =myDb.getAll_CT_Rows();
     		
-    		String mylist[] = null ;
-    		String stemp ;
+    		String[] mylist = {""} ;
+    		String stemp = "" ;
     		if (name.moveToFirst()) {
 				do {
-					int i=0 ;
-					 semp = stemp+name.getString(2)+",";
-					JSONArray temp = new JSONArray(name.getString(2));
-					mylist = temp.join(",").split(",");
-			
-					i+=1;
+					int i =0;
+					Log.i("name", name.getString(2));
+					mylist[i] = name.getString(2);
+					Log.i("mylist", mylist[i]);
+					i=i+1;
 
 				} while(name.moveToNext());
 				name.close();
 			}
-    		
-    		
+			Log.i("stemp", stemp);
     		list = (ListView) findViewById(R.id.listView1);
 
     		String[] classname = mylist;
@@ -294,31 +294,40 @@ public class MainActivity extends Activity implements OnClickListener {
     	    dialog_delclasspg.setTitle("刪除類別");
     		Log.i("test", "stuck4");
     	    VivzAdapter  adapter = new VivzAdapter(this, classname);
-    	    
-    	    list.setAdapter(adapter);
-    		Log.i("test", "stuck5");
+    	    Log.i("test", "stuck4.1");
+    	  
     	    dialog_delclasspg.show() ;
     	    
+    	      list.setAdapter(adapter);	
+    		Log.i("test", "stuck5");
     	}
  	
     	class VivzAdapter extends ArrayAdapter<String>
     	{
     		Context context;
+    		String[] classnamearray;
     		 VivzAdapter(Context c , String[] classname) 
     		{
     			 super (c,R.layout.singelrow,R.id.TextView,classname);
+
     			 this.context =c ;
+
+    			 this.classnamearray = classname;
+
 			}
-    		 @Override
+
+			@SuppressLint("ViewHolder")
+			@Override
     		 public View getView(int position , View convertView , ViewGroup parent){
+    			 Log.i("test", "stuck7.1");
     			 LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     			 View row =inflater.inflate(R.layout.singelrow, parent , false);
     			 
     			 EditText delclassname = (EditText) row.findViewById(R.id.TextView);
-    			 Button del_btn = (Button) row.findViewById(R.id.del_btn);
+    			 //Button del_btn = (Button) row.findViewById(R.id.del_btn);
     			 
-    			 
-    			 
+    			 delclassname.setText(classnamearray[position]);
+    			 //del_btn.setText("刪除");
     			 return row;
     		 }
     	}
