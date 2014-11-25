@@ -73,7 +73,7 @@ public class MainActivity extends Activity implements OnClickListener {
     }
 
 
-
+/*
 	@Override
 	protected void onStart() {		
 		super.onStart();
@@ -109,7 +109,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		super.onDestroy();
 		Toast.makeText(getApplicationContext(),"onDestroy(1)",Toast.LENGTH_SHORT).show();
     }
-
+*/
 
  //-------------------------------------------------------------mauching
  //-------------聽btnInMoeny按鈕事件，並呼叫新的Activity-------------------mauching   
