@@ -14,6 +14,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.text.Editable;
@@ -169,8 +170,10 @@ public class MainActivity extends Activity implements OnClickListener {
 					final String buttonevent = classname;
 				    btn.setOnClickListener(new View.OnClickListener() {
 				        public void onClick(View v) {
-				            //your desired functionality
-				        	Log.i("button event", buttonevent);
+				    		Intent intent = new Intent();
+				    		intent.setClass(MainActivity.this, InMoney.class);
+				    		startActivity(intent);
+				    	
 				        }});
 				    
 				    grid.addView(btn);
@@ -200,7 +203,10 @@ public class MainActivity extends Activity implements OnClickListener {
 	    btn.setOnClickListener(new View.OnClickListener() {
 	        public void onClick(View v) {
 	            //your desired functionality
-	        	Log.i("button event", buttonevent);
+	    		Intent intent = new Intent();
+	    		intent.setClass(MainActivity.this, InMoney.class);
+	    		startActivity(intent);
+	    	
 	        }});
 
 		grid.addView(btn);
@@ -240,10 +246,8 @@ public class MainActivity extends Activity implements OnClickListener {
 					Editable str;
 					str = addclassname.getText();
 					String classname =str.toString();
-					Log.i("button name" , classname);
 //					add();
 					create_btn(classname , null);
-					Log.i("insert database" , classname);
 					myDb.insert_CT_Row("personal", classname, 0);
 					dialog_addclasspg.dismiss();
 				}
@@ -274,32 +278,32 @@ public class MainActivity extends Activity implements OnClickListener {
     		if (name.moveToFirst()) {
 				do {
 					int i =0;
-					Log.i("name", name.getString(2));
+
 					mylist[i] = name.getString(2);
-					Log.i("mylist", mylist[i]);
+
 					i=i+1;
 
 				} while(name.moveToNext());
 				name.close();
 			}
-			Log.i("stemp", stemp);
+
     		list = (ListView) findViewById(R.id.listView1);
 
     		String[] classname = mylist;
-    		Log.i("test", "stuck3");
+ 
     	    final Dialog dialog_delclasspg = new Dialog(this, R.style.dialogStyle);
     	    
     	    dialog_delclasspg.setContentView(R.layout.delclasspg);
     	    
     	    dialog_delclasspg.setTitle("§R°£Ãþ§O");
-    		Log.i("test", "stuck4");
+
     	    VivzAdapter  adapter = new VivzAdapter(this, classname);
-    	    Log.i("test", "stuck4.1");
+
     	  
     	    dialog_delclasspg.show() ;
     	    
     	      list.setAdapter(adapter);	
-    		Log.i("test", "stuck5");
+
     	}
  	
     	class VivzAdapter extends ArrayAdapter<String>
@@ -319,7 +323,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			@SuppressLint("ViewHolder")
 			@Override
     		 public View getView(int position , View convertView , ViewGroup parent){
-    			 Log.i("test", "stuck7.1");
+
     			 LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     			 View row =inflater.inflate(R.layout.singelrow, parent , false);
     			 
@@ -404,10 +408,13 @@ public class MainActivity extends Activity implements OnClickListener {
 			
 		}
     
-   
-    
-    
-    
+		@Override
+		public void onConfigurationChanged(Configuration newConfig) {
+			// TODO Auto-generated method stub
+			super.onConfigurationChanged(newConfig);
+			
+		}
+		
 
 } 		
 
