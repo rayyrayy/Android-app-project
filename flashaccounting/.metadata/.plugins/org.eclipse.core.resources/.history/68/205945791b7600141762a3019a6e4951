@@ -24,7 +24,6 @@
             </intent-filter>
         </activity>
         <activity android:label="InMoney" android:name=".InMoney"/>
-        <activity android:label="刪除類別" android:name=".delclass"/>
     </application>
 
 </manifest>

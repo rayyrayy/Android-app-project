@@ -274,7 +274,7 @@ public class MainActivity extends Activity implements OnClickListener {
     		Intent intent = new Intent();
     		intent.setClass(MainActivity.this, delclass.class);
     		startActivity(intent);
-/*
+
     		Cursor name =myDb.getAll_CT_Rows();
     		
     		String[] mylist = {""} ;
@@ -307,7 +307,7 @@ public class MainActivity extends Activity implements OnClickListener {
     	    dialog_delclasspg.show() ;
     	    
     	      list.setAdapter(adapter);	
-*/
+
     	}
  	
     	class VivzAdapter extends ArrayAdapter<String>
