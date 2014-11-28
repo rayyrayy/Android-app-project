@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;easy money manager/res/layout/singelrow.xml&apos; to &apos;singlerow.xml&apos;" description="Rename resource &apos;singelrow.xml&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="res/layout/singelrow.xml" name="singlerow.xml" stamp="1417161132043" updateReferences="true"/>
+</session>

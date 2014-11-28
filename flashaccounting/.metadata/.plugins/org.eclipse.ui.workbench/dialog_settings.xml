@@ -4,12 +4,16 @@
 		<item value="1025" key="dialogWidth"/>
 		<item value="526" key="dialogHeight"/>
 		<list key="orderedProviders">
+			<item value="org.eclipse.ui.perspectives"/>
 		</list>
 		<list key="textArray">
+			<item value="ddms"/>
 		</list>
 		<list key="orderedElements">
+			<item value="com.android.ide.eclipse.ddms.Perspective"/>
 		</list>
 		<list key="textEntries">
+			<item value="1"/>
 		</list>
 	</section>
 	<section name="WorkbenchPreferenceDialogSettings">
@@ -24,10 +28,10 @@
 	</section>
 	<section name="ShowViewDialog">
 		<item value="330" key="DIALOG_WIDTH"/>
-		<item value="com.android.ide.eclipse.ddms.views.FileExplorerView" key="ShowViewDialog.STORE_SELECTED_VIEW_ID"/>
+		<item value="com.android.ide.eclipse.ddms.views.OldLogCatView" key="ShowViewDialog.STORE_SELECTED_VIEW_ID"/>
 		<item value="76" key="DIALOG_Y_ORIGIN"/>
-		<item value="444" key="DIALOG_HEIGHT"/>
 		<item value="526" key="DIALOG_X_ORIGIN"/>
+		<item value="444" key="DIALOG_HEIGHT"/>
 		<item value="1|微軟正黑體|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|微軟正黑體" key="DIALOG_FONT_NAME"/>
 		<list key="ShowViewDialog.STORE_EXPANDED_CATEGORIES_ID">
 			<item value="com.android.ide.eclipse.ddms.views.category"/>

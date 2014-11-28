@@ -309,7 +309,7 @@ public class MainActivity extends Activity implements OnClickListener {
     	      list.setAdapter(adapter);	
 */
     	}
- 	
+/* 	
     	class VivzAdapter extends ArrayAdapter<String>
     	{
     		Context context;
@@ -338,7 +338,7 @@ public class MainActivity extends Activity implements OnClickListener {
     			 //del_btn.setText("§R°£");
     			 return row;
     		 }
-    	}
+    	}  */
     	
     	public void DelClass(View v){
     		
