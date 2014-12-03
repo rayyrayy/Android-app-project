@@ -14,6 +14,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.text.Editable;
@@ -42,12 +43,13 @@ import android.widget.Toast;
 public class MainActivity extends Activity implements OnClickListener {
 	
 	ListView list;
+	
 	//呼叫DB
 	DBAdapter myDb;
 
 	//類別按鈕計數
 	public int btn_num = 0 ;	
-	//Button[] btn = new Button[9];
+
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -65,15 +67,14 @@ public class MainActivity extends Activity implements OnClickListener {
         
 //-------------------------------------------------------------mauching
 
+        	//將資料庫內的類別，讀出後產生按鈕
         	Cursor name =myDb.getAll_CT_Rows();
-//        	Log.i("button", "begin");
         	create_btn(null , name) ;
-
 
     }
 
-
-/*
+    //Life cycle 生命週期
+//-------------------------------------------------------------------------------------
 	@Override
 	protected void onStart() {		
 		super.onStart();
@@ -109,8 +110,9 @@ public class MainActivity extends Activity implements OnClickListener {
 		super.onDestroy();
 		Toast.makeText(getApplicationContext(),"onDestroy(1)",Toast.LENGTH_SHORT).show();
     }
-*/
+//-------------------------------------------------------------------------------------------
 
+    
  //-------------------------------------------------------------mauching
  //-------------聽btnInMoeny按鈕事件，並呼叫新的Activity-------------------mauching   
     private Button.OnClickListener inMoneyListener = new Button.OnClickListener(){
@@ -136,6 +138,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		
 	}
 	
+	//刪除按鈕
 	private void delete_btn(int sum){
 		
 		if (sum == btn_num){
@@ -149,7 +152,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		else ;
 	}
 	
-	
+	//產生按鈕
 	private void create_btn(String classname , Cursor name){
 		
 		if (name != null){
@@ -169,8 +172,10 @@ public class MainActivity extends Activity implements OnClickListener {
 					final String buttonevent = classname;
 				    btn.setOnClickListener(new View.OnClickListener() {
 				        public void onClick(View v) {
-				            //your desired functionality
-				        	Log.i("button event", buttonevent);
+				    		Intent intent = new Intent();
+				    		intent.setClass(MainActivity.this, InMoney.class);
+				    		startActivity(intent);
+				    	
 				        }});
 				    
 				    grid.addView(btn);
@@ -200,7 +205,10 @@ public class MainActivity extends Activity implements OnClickListener {
 	    btn.setOnClickListener(new View.OnClickListener() {
 	        public void onClick(View v) {
 	            //your desired functionality
-	        	Log.i("button event", buttonevent);
+	    		Intent intent = new Intent();
+	    		intent.setClass(MainActivity.this, InMoney.class);
+	    		startActivity(intent);
+	    	
 	        }});
 
 		grid.addView(btn);
@@ -217,7 +225,8 @@ public class MainActivity extends Activity implements OnClickListener {
     
 
     public  EditText classname ;
-   
+    
+    	//新增類別項目到 CT 資料表
     	private void AddClass(){
     		
     	    final Dialog dialog_addclasspg = new Dialog(this, R.style.dialogStyle);
@@ -240,10 +249,8 @@ public class MainActivity extends Activity implements OnClickListener {
 					Editable str;
 					str = addclassname.getText();
 					String classname =str.toString();
-					Log.i("button name" , classname);
 //					add();
 					create_btn(classname , null);
-					Log.i("insert database" , classname);
 					myDb.insert_CT_Row("personal", classname, 0);
 					dialog_addclasspg.dismiss();
 				}
@@ -264,85 +271,15 @@ public class MainActivity extends Activity implements OnClickListener {
   		
     	}
 
-    	
+    	//刪除資料庫內的類別項目
     	private void DelClass() {
-
-    		Cursor name =myDb.getAll_CT_Rows();
     		
-    		String[] mylist = {""} ;
-    		String stemp = "" ;
-    		if (name.moveToFirst()) {
-				do {
-					int i =0;
-					Log.i("name", name.getString(2));
-					mylist[i] = name.getString(2);
-					Log.i("mylist", mylist[i]);
-					i=i+1;
-
-				} while(name.moveToNext());
-				name.close();
-			}
-			Log.i("stemp", stemp);
-    		list = (ListView) findViewById(R.id.listView1);
-
-    		String[] classname = mylist;
-    		Log.i("test", "stuck3");
-    	    final Dialog dialog_delclasspg = new Dialog(this, R.style.dialogStyle);
-    	    
-    	    dialog_delclasspg.setContentView(R.layout.delclasspg);
-    	    
-    	    dialog_delclasspg.setTitle("刪除類別");
-    		Log.i("test", "stuck4");
-    	    VivzAdapter  adapter = new VivzAdapter(this, classname);
-    	    Log.i("test", "stuck4.1");
-    	  
-    	    dialog_delclasspg.show() ;
-    	    
-    	      list.setAdapter(adapter);	
-    		Log.i("test", "stuck5");
-    	}
- 	
-    	class VivzAdapter extends ArrayAdapter<String>
-    	{
-    		Context context;
-    		String[] classnamearray;
-    		 VivzAdapter(Context c , String[] classname) 
-    		{
-    			 super (c,R.layout.singelrow,R.id.TextView,classname);
-
-    			 this.context =c ;
-
-    			 this.classnamearray = classname;
-
-			}
-
-			@SuppressLint("ViewHolder")
-			@Override
-    		 public View getView(int position , View convertView , ViewGroup parent){
-    			 Log.i("test", "stuck7.1");
-    			 LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-    			 View row =inflater.inflate(R.layout.singelrow, parent , false);
-    			 
-    			 EditText delclassname = (EditText) row.findViewById(R.id.TextView);
-    			 //Button del_btn = (Button) row.findViewById(R.id.del_btn);
-    			 
-    			 delclassname.setText(classnamearray[position]);
-    			 //del_btn.setText("刪除");
-    			 return row;
-    		 }
+    		Intent intent = new Intent();
+    		intent.setClass(MainActivity.this, delclass.class);
+    		startActivity(intent);
     	}
     	
-    	public void DelClass(View v){
-    		
-    		//myDb.delete_CT_Row(0);
-//    	    Log.i("delete database","start");
-    		//myDb.delete_CT_Row(1);
-//    		Log.i("delete database","seccess");
-    		//delete_btn();
-    			
-    	}
-    	
-    	
+    	//清空所有 CT 資料表內容
     	private void DelAll(){   		
     		
     		myDb.deleteAll_CT();
@@ -351,7 +288,7 @@ public class MainActivity extends Activity implements OnClickListener {
     	}  
 
 
-    	
+    	// Action Bar 內的物件
     	@Override
     	public boolean onCreateOptionsMenu(Menu menu) {
       	  // Inflate the menu; this adds items to the action bar if it is present.
@@ -404,10 +341,13 @@ public class MainActivity extends Activity implements OnClickListener {
 			
 		}
     
-   
-    
-    
-    
+		@Override
+		public void onConfigurationChanged(Configuration newConfig) {
+			// TODO Auto-generated method stub
+			super.onConfigurationChanged(newConfig);
+			
+		}
+		
 
 } 		
 
