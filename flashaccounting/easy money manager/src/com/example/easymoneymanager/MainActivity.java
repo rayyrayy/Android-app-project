@@ -163,7 +163,7 @@ public class MainActivity extends Activity implements OnClickListener {
 					GridLayout grid = (GridLayout) findViewById(R.id.gridLayout1) ;			
 					
 					Button btn = new Button(this);
-					btn.setGravity(0x77);
+//					btn.setGravity(0x77);
 					btn.setLayoutParams(new LayoutParams(230, 230));
 					btn.setId(btn_num);
 					Log.i("btn_num", Integer.toString(btn_num));

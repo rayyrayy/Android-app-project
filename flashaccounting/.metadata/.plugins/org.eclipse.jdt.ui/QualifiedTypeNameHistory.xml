@@ -8,7 +8,6 @@
 <fullyQualifiedTypeName name="android.widget.GridLayout.LayoutParams"/>
 <fullyQualifiedTypeName name="android.widget.LinearLayout.LayoutParams"/>
 <fullyQualifiedTypeName name="android.widget.LinearLayout"/>
-<fullyQualifiedTypeName name="android.view.ViewGroup.LayoutParams"/>
 <fullyQualifiedTypeName name="android.widget.GridView"/>
 <fullyQualifiedTypeName name="android.view.MenuInflater"/>
 <fullyQualifiedTypeName name="java.sql.Date"/>
@@ -35,4 +34,5 @@
 <fullyQualifiedTypeName name="com.example.easymoneymanager.delclass.SingleRow"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="android.util.Log"/>
+<fullyQualifiedTypeName name="android.view.ViewGroup.LayoutParams"/>
 </qualifiedTypeNameHistroy>
