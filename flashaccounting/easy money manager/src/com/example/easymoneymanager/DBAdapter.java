@@ -14,8 +14,8 @@ import android.util.Log;
 
 //--------------------------CT=CategoryTable--------------------------\\
 //----------------------------MT=MemoTable----------------------------\\
-/* ¨â­Ó¸ê®Æªí , ²Ä¤@­Ó CategoryTable¥Î¨Ó¦sclass¡Bgroup¥H¤Îtotal
- * 			²Ä¤G­ÓMemoTable¥Î¨Ó¦slist¡Bmoney¡Bdate¡Blocation¡Bphoto¡BCategoryTableID
+/* å…©å€‹è³‡æ–™è¡¨ï¼Œç¬¬ä¸€å€‹CategoryTableç”¨ä¾†å­˜classã€Bgroupä»¥åŠtotal
+ * 			ç¬¬äºŒå€‹MemoTableç”¨ä¾†å­˜listã€moneyã€dateã€locationã€photoã€CategoryTableID
  * 
  *  CategoryTable
  *--------------------------------------------------------------------------------------------------

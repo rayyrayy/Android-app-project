@@ -28,23 +28,43 @@ public final class R {
         public static final int ic_launcher=0x7f020003;
     }
     public static final class id {
-        public static final int AddClass=0x7f080010;
+        public static final int AddClass=0x7f080024;
         public static final int Add_cancel=0x7f080005;
         public static final int Add_ok=0x7f080004;
-        public static final int TextView_del=0x7f080009;
-        public static final int action_settings=0x7f080011;
+        public static final int Button00=0x7f08001a;
+        public static final int Button01=0x7f08000d;
+        public static final int Button02=0x7f08000e;
+        public static final int Button03=0x7f08000f;
+        public static final int Button04=0x7f080011;
+        public static final int Button05=0x7f080012;
+        public static final int Button06=0x7f080013;
+        public static final int Button07=0x7f080015;
+        public static final int Button08=0x7f080016;
+        public static final int Button09=0x7f080017;
+        public static final int ButtonAdd=0x7f080010;
+        public static final int ButtonClean=0x7f080019;
+        public static final int ButtonDivide=0x7f08001c;
+        public static final int ButtonEqual=0x7f08001b;
+        public static final int ButtonMinus=0x7f080014;
+        public static final int ButtonMultily=0x7f080018;
+        public static final int ButtonSubmit=0x7f08000c;
+        public static final int TextMoneyView=0x7f08000b;
+        public static final int TextView2=0x7f08000a;
+        public static final int TextView_del=0x7f08001d;
+        public static final int action_settings=0x7f080025;
         public static final int addclassname=0x7f080003;
-        public static final int button=0x7f08000c;
-        public static final int button1=0x7f08000a;
-        public static final int button2=0x7f08000b;
+        public static final int button=0x7f080020;
+        public static final int button1=0x7f08001e;
+        public static final int button2=0x7f08001f;
         public static final int button3=0x7f080001;
         public static final int button4=0x7f080002;
-        public static final int checkBox=0x7f08000e;
+        public static final int checkBox=0x7f080022;
         public static final int delclasspg=0x7f080006;
-        public static final int editText=0x7f08000f;
+        public static final int editText=0x7f080023;
         public static final int gridLayout1=0x7f080000;
         public static final int listView1=0x7f080007;
-        public static final int textView=0x7f08000d;
+        public static final int textNameView=0x7f080009;
+        public static final int textView=0x7f080021;
         public static final int textView1=0x7f080008;
     }
     public static final class layout {

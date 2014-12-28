@@ -1,5 +1,6 @@
 package com.example.easymoneymanager;
 
+import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -8,7 +9,7 @@ import java.util.Vector;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import android.annotation.SuppressLint;
+//import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -26,6 +27,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewDebug;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ArrayAdapter;
@@ -43,13 +45,12 @@ import android.widget.Toast;
 public class MainActivity extends Activity implements OnClickListener {
 	
 	ListView list;
-	
-	//�I�sDB
+	//呼叫DB
 	DBAdapter myDb;
 
-	//���O���s�p��
+	//類別按鈕計數
 	public int btn_num = 0 ;	
-
+	//Button[] btn = new Button[9];
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,68 +61,65 @@ public class MainActivity extends Activity implements OnClickListener {
 
         
 //-------------------------------------------------------------mauching
-        Button btnInMoney = (Button)findViewById(R.id.button3);			//���J���s
+        Button btnInMoney = (Button)findViewById(R.id.button3);			//輸入Button宣告
+        Button btnTotalCost = (Button)findViewById(R.id.TotalBtn);      //總計Button宣告
         btnInMoney.setOnClickListener(inMoneyListener);
+        btnTotalCost.setOnClickListener(totalCostListener);
         
         
         
 //-------------------------------------------------------------mauching
 
-        	//�N��Ʈw�������O�AŪ�X�Უ�ͫ��s
-        	Cursor name =myDb.getAll_CT_Rows();
+        //將資料庫內的類別，讀取出後產生按鈕
+        Cursor name =myDb.getAll_CT_Rows();
+//        	Log.i("button", "begin");
         	create_btn(null , name) ;
 
+
     }
 
-    //Life cycle �ͩR�g��
-//-------------------------------------------------------------------------------------
-	@Override
-	protected void onStart() {		
-		super.onStart();
-		Toast.makeText(getApplicationContext(),"onStart(1)",Toast.LENGTH_SHORT).show();
-	} 
-	
-	@Override
-	protected void onResume() {		
-		super.onResume();
-		Toast.makeText(getApplicationContext(),"onResume(1)",Toast.LENGTH_SHORT).show();
-	}
 
+//Life Cycle生命週期
 	@Override
-	protected void onRestart() {		
-		super.onRestart();
-		Toast.makeText(getApplicationContext(),"onRestart(1)",Toast.LENGTH_SHORT).show();
-	}
-
+	protected void onStart() {		super.onStart();
+		//Toast.makeText(getApplicationContext(),"onStart(1)",Toast.LENGTH_SHORT).show();
+		}
 	@Override
-	protected void onPause() {		
-		super.onPause();
-		Toast.makeText(getApplicationContext(),"onPause(1)",Toast.LENGTH_SHORT).show();
-	} 
-	
+	protected void onResume() {				super.onResume();}
 	@Override
-	protected void onStop() {		
-		super.onStop();
-		Toast.makeText(getApplicationContext(),"onStop(1)",Toast.LENGTH_SHORT).show();
-	}
-	
+	protected void onRestart() {				super.onRestart();	}
+	@Override
+	protected void onPause() {				super.onPause();	}
+	@Override
+    protected void onStop() {				super.onStop();	}
     @Override
-	protected void onDestroy() {    	
-		super.onDestroy();
-		Toast.makeText(getApplicationContext(),"onDestroy(1)",Toast.LENGTH_SHORT).show();
-    }
-//-------------------------------------------------------------------------------------------
+	protected void onDestroy() {    			super.onDestroy();    }
 
-    
  //-------------------------------------------------------------mauching
- //-------------ťbtnInMoeny���s�ƥ�A�éI�s�s��Activity-------------------mauching   
+ //-------------聽btnInMoeny按鈕事件，並呼叫新的Activity-------------------mauching
     private Button.OnClickListener inMoneyListener = new Button.OnClickListener(){
     	public void onClick(View v){
     		Intent intent = new Intent();
     		intent.setClass(MainActivity.this, InMoney.class);
+            //new一個Bundle物件，並將要傳遞的資料傳入
+            Bundle bundle = new Bundle();
+            bundle.putString("ctid","Test");//在此傳入CTID，是哪一個按鈕按入的，用以讓下個Activity可以從SQLite找到對應的資料表
+            //將Bundle物件傳給intent
+    		intent.putExtras(bundle);
+            //切換Activity
     		startActivity(intent);
     	
     	}
+    };
+    private OnClickListener totalCostListener = new OnClickListener(){
+        public void onClick(View v){
+            Intent intent = new Intent();
+            intent.setClass(MainActivity.this, TotalCost.class);
+            Log.i("call totalcost","here");
+            startActivity(intent);
+
+
+        }
     };
 //---------------------------------------------------------------mauching    
 
@@ -137,8 +135,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		myDb.close();
 		
 	}
-	
-	//�R�����s
+	//刪除按鈕
 	private void delete_btn(int sum){
 		
 		if (sum == btn_num){
@@ -152,7 +149,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		else ;
 	}
 	
-	//���ͫ��s
+	//產生按鈕
 	private void create_btn(String classname , Cursor name){
 		
 		if (name != null){
@@ -163,7 +160,7 @@ public class MainActivity extends Activity implements OnClickListener {
 					GridLayout grid = (GridLayout) findViewById(R.id.gridLayout1) ;			
 					
 					Button btn = new Button(this);
-//					btn.setGravity(0x77);
+					btn.setGravity(0x77);
 					btn.setLayoutParams(new LayoutParams(230, 230));
 					btn.setId(btn_num);
 					Log.i("btn_num", Integer.toString(btn_num));
@@ -174,6 +171,12 @@ public class MainActivity extends Activity implements OnClickListener {
 				        public void onClick(View v) {
 				    		Intent intent = new Intent();
 				    		intent.setClass(MainActivity.this, InMoney.class);
+                            //new一個Bundle物件，並將要傳遞的資料傳入
+                            Bundle bundle = new Bundle();
+                            bundle.putString("btn_num", String.valueOf(v.getId()));//在此傳入CTID，是哪一個按鈕按入的，用以讓下個Activity可以從SQLite找到對應的資料表
+                            //將Bundle物件傳給intent
+                            intent.putExtras(bundle);
+                            //切換Activity
 				    		startActivity(intent);
 				    	
 				        }});
@@ -205,10 +208,15 @@ public class MainActivity extends Activity implements OnClickListener {
 	    btn.setOnClickListener(new View.OnClickListener() {
 	        public void onClick(View v) {
 	            //your desired functionality
-	    		Intent intent = new Intent();
-	    		intent.setClass(MainActivity.this, InMoney.class);
-	    		startActivity(intent);
-	    	
+                Intent intent = new Intent();
+                intent.setClass(MainActivity.this, InMoney.class);
+                //new一個Bundle物件，並將要傳遞的資料傳入
+                Bundle bundle = new Bundle();
+                bundle.putString("btn_num", String.valueOf(v.getId()));//在此傳入CTID，是哪一個按鈕按入的，用以讓下個Activity可以從SQLite找到對應的資料表
+                //將Bundle物件傳給intent
+                intent.putExtras(bundle);
+                //切換Activity
+                startActivity(intent);
 	        }});
 
 		grid.addView(btn);
@@ -225,15 +233,14 @@ public class MainActivity extends Activity implements OnClickListener {
     
 
     public  EditText classname ;
-    
-    	//�s�W���O���ب� CT ��ƪ�
+        //新增類別項目到CT資料表
     	private void AddClass(){
     		
     	    final Dialog dialog_addclasspg = new Dialog(this, R.style.dialogStyle);
     	    
     	    dialog_addclasspg.setContentView(R.layout.addclasspg);
     	    
-    	    dialog_addclasspg.setTitle("�s�W��X���O");
+    	    dialog_addclasspg.setTitle("新增支出類別");
     	    
     	    final EditText addclassname = (EditText)dialog_addclasspg.findViewById(R.id.addclassname);
     	    
@@ -271,15 +278,89 @@ public class MainActivity extends Activity implements OnClickListener {
   		
     	}
 
-    	//�R����Ʈw�������O����
+
     	private void DelClass() {
     		
     		Intent intent = new Intent();
     		intent.setClass(MainActivity.this, delclass.class);
     		startActivity(intent);
+/*
+    		Cursor name =myDb.getAll_CT_Rows();
+    		
+    		String[] mylist = {""} ;
+    		String stemp = "" ;
+    		if (name.moveToFirst()) {
+				do {
+					int i =0;
+
+					mylist[i] = name.getString(2);
+
+					i=i+1;
+
+				} while(name.moveToNext());
+				name.close();
+			}
+
+    		list = (ListView) findViewById(R.id.listView1);
+
+    		String[] classname = mylist;
+ 
+    	    final Dialog dialog_delclasspg = new Dialog(this, R.style.dialogStyle);
+    	    
+    	    dialog_delclasspg.setContentView(R.layout.delclasspg);
+    	    
+    	    dialog_delclasspg.setTitle("�R�����O");
+
+    	    VivzAdapter  adapter = new VivzAdapter(this, classname);
+
+    	  
+    	    dialog_delclasspg.show() ;
+    	    
+    	      list.setAdapter(adapter);	
+*/
     	}
-    	
-    	//�M�ũҦ� CT ��ƪ����e
+/* 	
+    	class VivzAdapter extends ArrayAdapter<String>
+    	{
+    		Context context;
+    		String[] classnamearray;
+    		 VivzAdapter(Context c , String[] classname) 
+    		{
+    			 super (c,R.layout.singelrow,R.id.TextView,classname);
+
+    			 this.context =c ;
+
+    			 this.classnamearray = classname;
+
+			}
+
+			@SuppressLint("ViewHolder")
+			@Override
+    		 public View getView(int position , View convertView , ViewGroup parent){
+
+    			 LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    			 View row =inflater.inflate(R.layout.singelrow, parent , false);
+    			 
+    			 EditText delclassname = (EditText) row.findViewById(R.id.TextView);
+    			 //Button del_btn = (Button) row.findViewById(R.id.del_btn);
+    			 
+    			 delclassname.setText(classnamearray[position]);
+    			 //del_btn.setText("�R��");
+    			 return row;
+    		 }
+    	}  */
+        //刪除資料庫內的類別項目
+    	public void DelClass(View v){
+    		
+    		//myDb.delete_CT_Row(0);
+//    	    Log.i("delete database","start");
+    		//myDb.delete_CT_Row(1);
+//    		Log.i("delete database","seccess");
+    		//delete_btn();
+    			
+    	}
+
+        //清空所有CT資料表內容
     	private void DelAll(){   		
     		
     		myDb.deleteAll_CT();
@@ -288,15 +369,15 @@ public class MainActivity extends Activity implements OnClickListener {
     	}  
 
 
-    	// Action Bar ��������
+    	//Action Bar 內的物件
     	@Override
     	public boolean onCreateOptionsMenu(Menu menu) {
       	  // Inflate the menu; this adds items to the action bar if it is present.
-      	  //menu.add �ѼƩw�q:
-      	   //menu.add (group ID , item_ID, �ƦC����, item�q�b�e�����W��); 
-      	  menu.add(0, 1, 4, "�M�ũҦ����O");
-      	  menu.add(0, 2, 3, "��ܮɶ�");
-      	  menu.add(0, 3, 2, "�R�����O");
+      	  //menu.add 參數定義:
+      	   //menu.add (group ID , item_ID, 排列順序，item秀在畫面的名稱);
+      	  menu.add(0, 1, 4, "清空所有類別");
+      	  menu.add(0, 2, 3, "顯示時間");
+      	  menu.add(0, 3, 2, "刪除類別");
       	  menu.add(0, 4, 1, "exit");
       	  //super.onCreateOptionsMenu(menu);
           MenuInflater inflater = getMenuInflater();
@@ -312,8 +393,8 @@ public class MainActivity extends Activity implements OnClickListener {
     	   AddClass();
     	   break;
     	  case 1:
-    	   //�o�ؼg�k�i�H�b���w��m�q�Xmessage   
-    	   Toast toast1=Toast.makeText(this, "��Ʈw�w�M��", Toast.LENGTH_LONG);
+    	   //這種寫法可以指定位置秀出message
+    	   Toast toast1=Toast.makeText(this, "資料庫已清空", Toast.LENGTH_LONG);
     	   toast1.setGravity(Gravity.CENTER_HORIZONTAL, 50, 50);
     	   toast1.show();
     	   DelAll();

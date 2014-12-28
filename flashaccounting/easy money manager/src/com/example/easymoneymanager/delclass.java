@@ -177,10 +177,13 @@ public class delclass extends ListActivity implements ListView.OnItemClickListen
          @Override
          public void onCreate(Bundle savedInstanceState) {
                   super.onCreate(savedInstanceState);
+                  Log.i("delclass", "begin0");
                   openDB();
                   list = getData();
                   MyAdapter adapter = new MyAdapter(this);
                   setListAdapter(adapter); 
+                  Log.i("delclass", "begin1");
+                  
 
          }
 
@@ -223,6 +226,7 @@ public class delclass extends ListActivity implements ListView.OnItemClickListen
                   private LayoutInflater inflater;
                   public MyAdapter(Context context) {
                            inflater = LayoutInflater.from(context);
+                           Log.i("delclass", "MyAdapter");
                   }
 
                   @Override
@@ -249,6 +253,7 @@ public class delclass extends ListActivity implements ListView.OnItemClickListen
 
                   @Override
                   public View getView(final int position, View convertView, ViewGroup parent) {
+                      Log.i("delclass", "getView0");
                            // TODO Auto-generated method stub
                            MyView myviews = null;
                            myviews = new MyView();
@@ -256,13 +261,17 @@ public class delclass extends ListActivity implements ListView.OnItemClickListen
                            myviews.classname = (TextView) convertView.findViewById(R.id.TextView_del);
                            myviews.del = (Button) convertView.findViewById(R.id.button2);
                            myviews.edit = (Button) convertView.findViewById(R.id.button1);
+
+
                            myviews.classname.setText((String) list.get(position).get("classname"));
+                           Log.i("delclass", "getView1");
                            myviews.del.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
                                              Toast.makeText(delclass.this, stringArray[position]+"del", Toast.LENGTH_SHORT).show();
                                     }
                            }); 
+                           Log.i("delclass", "getView2");
                            myviews.edit.setOnClickListener(new View.OnClickListener() {
                                @Override
                                public void onClick(View v) {
