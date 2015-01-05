@@ -151,19 +151,22 @@ public class MainActivity extends Activity implements OnClickListener {
 	
 	//產生按鈕
 	private void create_btn(String classname , Cursor name){
-		
+        int classId=0;
 		if (name != null){
 			if (name.moveToFirst()) {
 				do {
 					classname = name.getString(2);
-	
+                    classId = name.getInt(0);
+
 					GridLayout grid = (GridLayout) findViewById(R.id.gridLayout1) ;			
 					
 					Button btn = new Button(this);
 					btn.setGravity(0x77);
 					btn.setLayoutParams(new LayoutParams(230, 230));
-					btn.setId(btn_num);
-					Log.i("btn_num", Integer.toString(btn_num));
+//					btn.setId(btn_num);
+                    btn.setId(classId);
+                    btn_num = classId;
+					Log.i("btn_num", Integer.toString(classId));
 					btn.setText(classname);
 			
 					final String buttonevent = classname;
@@ -182,8 +185,8 @@ public class MainActivity extends Activity implements OnClickListener {
 				        }});
 				    
 				    grid.addView(btn);
-				    
-					btn_num = btn_num +1 ;
+
+//					btn_num = btn_num +1 ;
 			
 				} while(name.moveToNext());
 				name.close();
@@ -199,7 +202,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
 		btn.setLayoutParams(new LayoutParams(230, 230));
 
-		btn.setId(btn_num);
+		btn.setId(btn_num+1);
 
 		btn.setText(classname);
 

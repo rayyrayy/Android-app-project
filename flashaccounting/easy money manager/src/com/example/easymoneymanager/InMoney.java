@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.util.Log;
+import java.util.Date;
+import android.database.Cursor;
 
 import java.text.SimpleDateFormat;
 
@@ -303,7 +305,9 @@ public class InMoney extends Activity{
 		
 	}
     private void insertDataToMemoTable(){
-        myDb.insert_MT_Row("List",sumMoney,"Date","Location","Group","Photo",Integer.valueOf(btn_num));
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+        String currentDateandTime = sdf.format(new Date());
+        myDb.insert_MT_Row("List",sumMoney,"Date","Location","Photo",Integer.valueOf(btn_num));
     }
     
 

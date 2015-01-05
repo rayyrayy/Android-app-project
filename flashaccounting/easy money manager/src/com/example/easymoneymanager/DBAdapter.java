@@ -65,6 +65,7 @@ public class DBAdapter {
 	public static final String MT_list = "list";
 	public static final String MT_money = "money";
 	public static final String MT_date = "date";
+    public static final String MT_time ="time";
 	public static final String MT_location = "location";
 	public static final String MT_photo = "photo";
 	public static final String MT_CategoryTableID = "CategoryTableID";
@@ -110,6 +111,7 @@ public class DBAdapter {
 		+ MT_list + " string not null, "
 		+ MT_money + " integer not null, "
 		+ MT_date + " string not null, "
+        + MT_time + " string not null,"
 		+ MT_location + " string , "
 		+ MT_photo + " string , "
 		+ MT_CategoryTableID + " int not null  "
@@ -164,6 +166,7 @@ public class DBAdapter {
 		initialValues.put(MT_list, list);
 		initialValues.put(MT_money, money);
 		initialValues.put(MT_date, date);
+        initialValues.put(MT_time, time);
 		initialValues.put(MT_location, location);
 		initialValues.put(MT_photo, photo);
 		initialValues.put(MT_CategoryTableID, CategoryTableID);
@@ -241,7 +244,7 @@ public class DBAdapter {
 		return db.update("CategoryTable", newValues, where, null) != 0;
 	}
 	
-	public boolean update_MT_Row(long rowId,String list, int money, String date,
+	public boolean update_MT_Row(long rowId,String list, int money, String date, String time,
 			String location, String group, String photo, int CategoryTableID) {
 		String where = MT_ROWID + "=" + rowId;
 
@@ -250,6 +253,7 @@ public class DBAdapter {
 		newValues.put(MT_list, list);
 		newValues.put(MT_money, money);
 		newValues.put(MT_date, date);
+        newValues.put(MT_time, time);
 		newValues.put(MT_location, location);
 		newValues.put(MT_photo, photo);
 		newValues.put(MT_CategoryTableID, CategoryTableID);
