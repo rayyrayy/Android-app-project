@@ -24,7 +24,7 @@ import android.util.Log;
  *
  *	MemoTable
  *--------------------------------------------------------------------------------------------------
- * |	_id		|	list	|	money	|	date	|	location	|	photo	|	CategoryTableID|
+ *|	_id		|	list	|	money	|	date	|       time| 	location	|	photo	|	CategoryTableID|
  *--------------------------------------------------------------------------------------------------
  * */
 
@@ -160,7 +160,7 @@ public class DBAdapter {
 	
 	// Add a new set of values to the database.
 	public long insert_MT_Row(String list, int money, String date,
-			String location, String group, String photo, int CategoryTableID) {
+			 String time,String location, String photo, int CategoryTableID) {
 
 		ContentValues initialValues = new ContentValues();
 		initialValues.put(MT_list, list);
